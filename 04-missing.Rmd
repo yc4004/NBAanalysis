@@ -1,1 +1,208 @@
-# Missing values
+---
+title: "Missing Values"
+author: "Yanbing Chen, Anne Lin"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+# this prevents package loading message from appearing in the rendered version of your problem set
+knitr::opts_chunk$set(echo = F,
+                      cache = F,
+                      results='markup', 
+                      message=F,
+                      warning=F)
+
+library(pander)
+library(knitr)
+library(tidyverse)
+library(hexbin)
+library(jsonlite)
+library(httr)
+library(scales)
+library(patchwork)
+```
+
+Here we will firstly look at the detailed shooting data for NBA Regular Season 2019-20. After getting the data out, here we firstly have a look at the head of data: 
+```{r GET_request}
+# start request header
+request_headers = c(
+  `Connection` = 'keep-alive',
+  `Accept` = 'application/json, text/plain, */*',
+  `x-nba-stats-token` = 'true',
+  `X-NewRelic-ID` = 'VQECWF5UChAHUlNTBwgBVw==',
+  `User-Agent` = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36',
+  `x-nba-stats-origin` = 'stats',
+  `Sec-Fetch-Site` = 'same-origin',
+  `Sec-Fetch-Mode` = 'cors',
+  `Referer` = 'https://stats.nba.com/players/leaguedashplayerbiostats/',
+  `Accept-Encoding` = 'gzip, deflate, br',
+  `Accept-Language` = 'en-US,en;q=0.9'
+)
+
+# define a function to grab shots data
+fetch_shots_by_player_id_and_season = function(player_id, season, season_type) {
+  
+  # GET request
+  request = GET(
+    "http://stats.nba.com/stats/shotchartdetail",
+    query = list(
+      PlayerID = player_id, # id or 0 for all
+      Season = season, 
+      SeasonType = season_type,
+      PlayerPosition = "",
+      ContextMeasure = "FGA",
+      DateFrom = "",
+      DateTo = "",
+      GameID = "",
+      GameSegment = "",
+      LastNGames = 0,
+      LeagueID = "00",
+      Location = "",
+      Month = 0,
+      OpponentTeamID = 0,
+      Outcome = "",
+      Period = 0,
+      Position = "",
+      RookieYear = "",
+      SeasonSegment = "",
+      TeamID = 0,
+      VsConference = "",
+      VsDivision = ""
+    ),
+    add_headers(request_headers)
+  )
+  
+  stop_for_status(request)
+  
+  # grab requested data
+  data = content(request)
+  
+  #
+  raw_shots_data = data$resultSets[[1]]$rowSet
+  col_names = tolower(as.character(data$resultSets[[1]]$headers))
+  
+  if (length(raw_shots_data) == 0) {
+    shots = data.frame(
+      matrix(nrow = 0, ncol = length(col_names))
+    )
+  } else {
+    shots = data.frame(
+      matrix(
+        unlist(raw_shots_data),
+        ncol = length(col_names),
+        byrow = TRUE
+      )
+    )
+  }
+  
+  shots = as_tibble(shots)
+  names(shots) = col_names
+  
+  return(shots)
+}
+shot_data = fetch_shots_by_player_id_and_season(0,"2019-20","Regular Season")
+```
+
+```{r data}
+head(shot_data,3)  %>% pander
+```
+
+It seems that there is actually no missing values in our first 5 rows of data. To examine the whole dataset, we firstly count the total number of missing value:
+```{r}
+as.tibble(sum(is.na(shot_data))) %>% pander()
+```
+
+To further confirm our hypothesis that our dataset contains no missing data, we then draw a missing value plot:
+```{r missing value plot, fig.align = 'center', fig.height = 5, fig.width = 7}
+# Input: df: dataframe to plot missing value; 
+#        percent: indicator whether to output percentage (FALSE: count, TRUE: percent)
+missing_plots <- function(df, percent = TRUE){
+  
+  # determine the level of variable based on # of missing rows
+  var_levels <- data.frame(count = colSums(is.na(df))) %>%
+    rownames_to_column("variable") %>%
+    arrange(desc(count),variable) %>%
+    pull(variable)
+  
+  # get the missing patterns
+  missing_patterns <- data.frame(is.na(df)) %>%
+  group_by_all() %>%
+  count(name = "count", sort = TRUE) %>%
+  ungroup()
+  
+  main <- missing_patterns %>%
+    select(-count) %>%
+    rowid_to_column("index") %>%
+    rowwise() %>% 
+    mutate(complete_case = sum(c_across(-index))) %>%
+    mutate(complete_case = ifelse(complete_case == 0,TRUE,FALSE)) %>% # find complete cases
+    gather("variable","missing_pattern",- c(index, complete_case)) %>% # make data in long form
+    ggplot(aes(x = factor(variable, levels = var_levels), 
+               y=reorder(index,-index), 
+               fill = missing_pattern, 
+               alpha = complete_case)) +
+    geom_tile(color = "white", lwd = 0.5, linetype = 1)+
+    geom_text(aes(label=
+                    ifelse(complete_case==TRUE 
+                             & variable == var_levels[as.integer(length(colnames(df))/2)+1],
+                             "Complete Cases", "")))+ # label "Complete Cases" in middle
+    scale_fill_manual(values=c("grey","purple4"))+ # define fill color 
+    scale_alpha_manual(values=c(0.5,1))+ # define alpha
+    ylab("missing cases") + xlab("variables") + # define x,y title
+    theme_classic()+ 
+    theme(legend.position = "none") # remove legend
+  
+  
+  upper_c <- data.frame(count = colSums(is.na(df))) %>%
+    rownames_to_column("variable") %>%
+    ggplot(aes(x = factor(variable, levels = var_levels), y = count))+
+    geom_col(fill = "steelblue", alpha = 0.5)+
+    ylab(ifelse(percent == TRUE, "% rows missing", "# rows missing")) +
+    theme_bw()+
+    theme(panel.grid.major.x = element_blank(), # only keep horizontal lines
+          axis.title.x=element_blank()) # remove x-axis title
+  
+  upper_p <- data.frame(count = colSums(is.na(df))) %>%
+    mutate(count = count/nrow(df)*100) %>%
+    rownames_to_column("variable") %>%
+    ggplot(aes(x = factor(variable, levels = var_levels), y = count))+
+    geom_col(fill = "steelblue", alpha = 0.5)+
+    ylab(ifelse(percent == TRUE, "% rows missing", "# rows missing")) +
+    theme_bw()+
+    theme(panel.grid.major.x = element_blank(), # only keep horizontal lines
+          axis.title.x=element_blank()) # remove x-axis title
+  
+  left <- missing_patterns %>%
+  rowid_to_column("index") %>%
+  rowwise() %>% 
+  mutate(complete_case = sum(c_across(-c(index,count)))) %>%
+  mutate(complete_case = ifelse(complete_case == 0,TRUE,FALSE)) %>%
+  select(index,count,complete_case) %>%
+  mutate(count = ifelse(percent == TRUE, count/nrow(df)*100, count)) %>%
+  ggplot(aes(x = reorder(index,-index), y = count, alpha = complete_case))+
+  geom_col(fill = "steelblue")+
+  scale_alpha_manual(values=c(0.5,1))+
+  ylab(ifelse(percent == TRUE, "% rows", "# rows")) +
+  theme_bw()+
+  coord_flip()+
+  theme(panel.grid.major.y = element_blank(), # only keep horizontal lines
+        axis.title.y=element_blank(), # remove x-axis title
+        legend.position = "none") 
+  
+  if (percent == TRUE) {
+    return (upper_p+main+left+ plot_layout(design = c( area(1, 1, 1, 3),area(2, 1, 4, 3), area(2, 4, 4, 4)))+plot_annotation(title = "Missing Value Plot with Percent of Missing Value"))
+  }else{
+    return (upper_c+main+left+ plot_layout(design = c( area(1, 1, 1, 3),area(2, 1, 4, 3), area(2, 4, 4, 4)))+plot_annotation(title = "Missing Value Plot with Count of Missing Value"))
+  }
+}
+
+missing_plots(shot_data, FALSE)
+```
+
+From the plot, we can see that all rows are "completed cases", and the total number of missing values for each variable is 0.
+
+As expected, both results indicates that our dataset contains no missing data. Therefore, we can finally conclude that there is no missing data in our dataset.
+
+
