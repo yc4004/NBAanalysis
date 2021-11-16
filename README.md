@@ -23,8 +23,16 @@ For this EDAV project, we are going to focus on the shooting behaviors of NBA pl
 - [ ] 2. Is there an obvious trend for each team’s performance?
 
 
+
+
 ## Data Resources
 
 Note that there is no downloading option for the data on NBA Official Website, so we need to use a repository and GET requests to scrape data from the NBA API - https://github.com/swar/nba_api
 
+
+
+
+
+
+This repo was initially generated from a bookdown template available here: https://github.com/jtr13/EDAVtemplate.
 
