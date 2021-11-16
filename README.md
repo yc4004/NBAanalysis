@@ -27,7 +27,9 @@ For this EDAV project, we are going to focus on the shooting behaviors of NBA pl
 
 ## Data Resources
 
-Note that there is no downloading option for the data on NBA Official Website, so we need to use a repository and GET requests to scrape data from the NBA API - https://github.com/swar/nba_api. This API is considered a reliable source for the NBA data because the link was created to stats.nba.com - stats, which is the official website for NBA statistics.
+Note that there is no downloading option for the data on NBA Official Website, so we need to use a repository and GET requests to scrape data from the NBA API - https://github.com/swar/nba_api. 
+
+This API is considered a reliable source for the NBA data because the link was created to stats.nba.com - stats, which is the official website for NBA statistics.
 
 
 (This repo was initially generated from a bookdown template available here: https://github.com/jtr13/EDAVtemplate.)
