@@ -1,4 +1,4 @@
-# Missing Value
+# Missing Values
 
 ```{r setup, include=FALSE}
 library(pander)
