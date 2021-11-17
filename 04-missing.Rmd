@@ -190,6 +190,6 @@ missing_plots(shot_data, FALSE)
 
 From the plot, we can see that all rows are "completed cases", and the total number of missing values for each variable is 0.
 
-As expected, both results indicates that our dataset contains no missing data. Therefore, we can finally conclude that there is no missing data in our dataset.
+As expected, both results indicates that our dataset contains no missing data. Therefore, we can finally conclude that there is no missing data in our datase and proceed to next steps.
 
 
