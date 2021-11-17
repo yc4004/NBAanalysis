@@ -11,7 +11,7 @@ library(scales)
 library(patchwork)
 ```
 
-Here we will firstly look at the detailed shooting data for NBA Regular Season 2019-20. After getting the data out, here we firstly have a look at the head of data: 
+Here we will firstly look at the missing pattern of detailed shooting data for NBA Regular Season 2019-20. After getting the data out, here we firstly have a look at the head of data: 
 ```{r GET_request}
 # start request header
 request_headers = c(
