@@ -1,2 +1,7 @@
 # Data sources
 
+Note that there is no downloading option for the data on NBA Official Website, so we need to scrape the data from the official website https://www.nba.com/stats/ using `GET()` from `httr` library.
+
+
+
+
