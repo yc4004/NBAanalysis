@@ -6,3 +6,4 @@ interactive-component
 conclusion
 missing-value
 missing-values
+detailed-shot-data

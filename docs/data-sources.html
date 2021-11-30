@@ -24,7 +24,7 @@
 <meta name="author" content="Anne Lin, Yanbing Chen" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,7 +74,10 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#detailed-shot-data"><i class="fa fa-check"></i><b>2.1</b> Detailed shot data</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
@@ -101,8 +104,20 @@
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<p>Note that there is no downloading option for the data on NBA Official Website, so we need to scrape the data from the official website <a href="https://www.nba.com/stats/" class="uri">https://www.nba.com/stats/</a> using <code>GET()</code> from <code>httr</code> library.</p>
+<p>Note that there is no downloading option for the data on NBA official website, so we need to scrape the data from the official website <a href="https://www.nba.com/stats/" class="uri">https://www.nba.com/stats/</a> using <code>GET()</code> from <code>httr</code> library.</p>
+<p>Since the data source is the NBA official website, it is considered reliable.</p>
+<div id="detailed-shot-data" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Detailed shot data</h2>
+<p>The scraping procedure for detailed shot data for 2020-21 Regular Season is as follows:</p>
+<ul>
+<li><p>For the detailed shooting data, we firstly land in the <a href="https://www.nba.com/stats/" class="uri">https://www.nba.com/stats/</a> webpage. Scrolling down, we can see a “Shotchart Search” section. Inputting one player’s name, taking Stephen Curry during 2021-22 season as example, we can land in the page <a href="https://www.nba.com/stats/events/?flag=3&amp;CFID=33&amp;CFPARAMS=2021-22&amp;PlayerID=201939&amp;ContextMeasure=FGA&amp;Season=2021-22&amp;section=player&amp;sct=hex" class="uri">https://www.nba.com/stats/events/?flag=3&amp;CFID=33&amp;CFPARAMS=2021-22&amp;PlayerID=201939&amp;ContextMeasure=FGA&amp;Season=2021-22&amp;section=player&amp;sct=hex</a>.</p></li>
+<li><p>In this page, we can see data with each row being a field goal that gives us information like the type of shot, whether it was successful, shot distance, etc. However, the exact location of the shot doesn’t appear.</p></li>
+<li><p>To access the detailed shots location data, we can right click on the webpage and select “Inspect” and navigate to the “Network” tab. Then we can find the <code>shotchartdetail</code> data (if not appear, refresh page). Once find it, right clicking it and open it in a new tab, so we can get the URL.</p></li>
+<li><p>After getting the URL, we can use the url to import the data on the webpage into our R studio using <code>GET()</code> function.</p></li>
+</ul>
+<p>After building the function to grab shots data using <code>GET()</code> and doing simple data preprocessing, our final shot data contains in total 24 columns and around 200,000 observations. The variables include player information (ID, name), team information (ID, name), game information (ID, date), and shot information (period, minutes and seconds remaining, whether shot successful, XY location, shot zone, shot area, etc.) All variables are in either string or integer format except date.</p>
 
+</div>
 </div>
             </section>
 
