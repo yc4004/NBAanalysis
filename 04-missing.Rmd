@@ -11,94 +11,17 @@ library(scales)
 library(patchwork)
 ```
 
-Here we will firstly look at the missing pattern of detailed shooting data for NBA Regular Season 2019-20. After getting the data out, here we firstly have a look at the head of data: 
-```{r GET_request}
-# start request header
-request_headers = c(
-  `Connection` = 'keep-alive',
-  `Accept` = 'application/json, text/plain, */*',
-  `x-nba-stats-token` = 'true',
-  `X-NewRelic-ID` = 'VQECWF5UChAHUlNTBwgBVw==',
-  `User-Agent` = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36',
-  `x-nba-stats-origin` = 'stats',
-  `Sec-Fetch-Site` = 'same-origin',
-  `Sec-Fetch-Mode` = 'cors',
-  `Referer` = 'https://stats.nba.com/players/leaguedashplayerbiostats/',
-  `Accept-Encoding` = 'gzip, deflate, br',
-  `Accept-Language` = 'en-US,en;q=0.9'
-)
-
-# define a function to grab shots data
-fetch_shots_by_player_id_and_season = function(player_id, season, season_type) {
-  
-  # GET request
-  request = GET(
-    "http://stats.nba.com/stats/shotchartdetail",
-    query = list(
-      PlayerID = player_id, # id or 0 for all
-      Season = season, 
-      SeasonType = season_type,
-      PlayerPosition = "",
-      ContextMeasure = "FGA",
-      DateFrom = "",
-      DateTo = "",
-      GameID = "",
-      GameSegment = "",
-      LastNGames = 0,
-      LeagueID = "00",
-      Location = "",
-      Month = 0,
-      OpponentTeamID = 0,
-      Outcome = "",
-      Period = 0,
-      Position = "",
-      RookieYear = "",
-      SeasonSegment = "",
-      TeamID = 0,
-      VsConference = "",
-      VsDivision = ""
-    ),
-    add_headers(request_headers)
-  )
-  
-  stop_for_status(request)
-  
-  # grab requested data
-  data = content(request)
-  
-  #
-  raw_shots_data = data$resultSets[[1]]$rowSet
-  col_names = tolower(as.character(data$resultSets[[1]]$headers))
-  
-  if (length(raw_shots_data) == 0) {
-    shots = data.frame(
-      matrix(nrow = 0, ncol = length(col_names))
-    )
-  } else {
-    shots = data.frame(
-      matrix(
-        unlist(raw_shots_data),
-        ncol = length(col_names),
-        byrow = TRUE
-      )
-    )
-  }
-  
-  shots = as_tibble(shots)
-  names(shots) = col_names
-  
-  return(shots)
-}
-shot_data = fetch_shots_by_player_id_and_season(0,"2019-20","Regular Season")
-```
+## Detailed shots data
+We will look at the missing pattern of detailed shots data for NBA Regular Season 2020-21. After getting the data out in the data sources portion, here we firstly have a look at the head of data: 
 
 ```{r data}
+shot_data = read_csv("shotchartdetail.csv")
 head(shot_data,3)  %>% pander()
 ```
 
 It seems that there is actually no missing values in our first 5 rows of data. To examine the whole dataset, we firstly count the total number of missing value:
 ```{r}
-as.tibble(sum(is.na(shot_data))) %>% pander()
+as_tibble(sum(is.na(shot_data))) %>% pander()
 ```
 
 To further confirm our hypothesis that our dataset contains no missing data, we then draw a missing value plot:

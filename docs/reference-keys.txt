@@ -7,3 +7,4 @@ conclusion
 missing-value
 missing-values
 detailed-shot-data
+detailed-shots-data

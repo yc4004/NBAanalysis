@@ -4,8 +4,8 @@ Note that there is no downloading option for the data on NBA official website, s
 
 Since the data source is the NBA official website, it is considered reliable. 
 
-## Detailed shot data
-The scraping procedure for detailed shot data for 2020-21 Regular Season is as follows:
+## Detailed shots data
+The scraping procedure for detailed shots data for 2020-21 Regular Season is as follows:
 
 * For the detailed shooting data, we firstly land in the https://www.nba.com/stats/ webpage. Scrolling down, we can see a "Shotchart Search" section. Inputting one player's name, taking Stephen Curry during 2021-22 season as example, we can land in the page https://www.nba.com/stats/events/?flag=3&CFID=33&CFPARAMS=2021-22&PlayerID=201939&ContextMeasure=FGA&Season=2021-22&section=player&sct=hex. 
 
@@ -18,7 +18,9 @@ The scraping procedure for detailed shot data for 2020-21 Regular Season is as f
 ```{r}
 library(tidyverse)
 library(httr)
+```
 
+```{r GET_shot_detail}
 headers = c(
   `Connection` = 'keep-alive',
   `Accept` = 'application/json, text/plain, */*',
@@ -96,7 +98,11 @@ fetch_shots = function(player_id, season, season_type) {
   return(shots)
 }
 
-shot_data = fetch_shots(0,"2020-21","Regular Season")
+shotchartdetail = fetch_shots(0,"2020-21","Regular Season")
+```
+
+```{r write_data}
+write.csv(shotchartdetail, "shotchartdetail.csv",row.names = FALSE)
 ```
 
 After building the function to grab shots data using `GET()` and doing simple data preprocessing, our final shot data contains in total 24 columns and around 200,000 observations. The variables include player information (ID, name), team information (ID, name), game information (ID, date), and shot information (period, minutes and seconds remaining, whether shot successful, XY location, shot zone, shot area, etc.) All variables are in either string or integer format except date.

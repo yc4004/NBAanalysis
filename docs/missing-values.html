@@ -24,7 +24,7 @@
 <meta name="author" content="Anne Lin, Yanbing Chen" />
 
 
-<meta name="date" content="2021-11-16" />
+<meta name="date" content="2021-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,9 +74,15 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#detailed-shot-data"><i class="fa fa-check"></i><b>2.1</b> Detailed shot data</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#detailed-shots-data"><i class="fa fa-check"></i><b>4.1</b> Detailed shots data</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -101,7 +107,9 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing Values</h1>
-<p>Here we will firstly look at the missing pattern of detailed shooting data for NBA Regular Season 2019-20. After getting the data out, here we firstly have a look at the head of data:</p>
+<div id="detailed-shots-data" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Detailed shots data</h2>
+<p>We will look at the missing pattern of detailed shots data for NBA Regular Season 2020-21. After getting the data out in the data sources portion, here we firstly have a look at the head of data:</p>
 <table>
 <caption>Table continues below</caption>
 <colgroup>
@@ -109,7 +117,7 @@
 <col width="16%" />
 <col width="20%" />
 <col width="15%" />
-<col width="21%" />
+<col width="20%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -123,32 +131,32 @@
 <tbody>
 <tr class="odd">
 <td align="center">Shot Chart Detail</td>
-<td align="center">0021900001</td>
-<td align="center">7</td>
-<td align="center">1628366</td>
-<td align="center">Lonzo Ball</td>
+<td align="center">0022000001</td>
+<td align="center">12</td>
+<td align="center">202681</td>
+<td align="center">Kyrie Irving</td>
 </tr>
 <tr class="even">
 <td align="center">Shot Chart Detail</td>
-<td align="center">0021900001</td>
-<td align="center">9</td>
-<td align="center">202324</td>
-<td align="center">Derrick Favors</td>
+<td align="center">0022000001</td>
+<td align="center">13</td>
+<td align="center">1630164</td>
+<td align="center">James Wiseman</td>
 </tr>
 <tr class="odd">
 <td align="center">Shot Chart Detail</td>
-<td align="center">0021900001</td>
-<td align="center">10</td>
-<td align="center">1628384</td>
-<td align="center">OG Anunoby</td>
+<td align="center">0022000001</td>
+<td align="center">16</td>
+<td align="center">201142</td>
+<td align="center">Kevin Durant</td>
 </tr>
 </tbody>
 </table>
 <table style="width:90%;">
 <caption>Table continues below</caption>
 <colgroup>
-<col width="18%" />
-<col width="31%" />
+<col width="16%" />
+<col width="33%" />
 <col width="12%" />
 <col width="27%" />
 </colgroup>
@@ -162,32 +170,32 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">1610612740</td>
-<td align="center">New Orleans Pelicans</td>
+<td align="center">1.611e+09</td>
+<td align="center">Brooklyn Nets</td>
 <td align="center">1</td>
 <td align="center">11</td>
 </tr>
 <tr class="even">
-<td align="center">1610612740</td>
-<td align="center">New Orleans Pelicans</td>
+<td align="center">1.611e+09</td>
+<td align="center">Golden State Warriors</td>
 <td align="center">1</td>
 <td align="center">11</td>
 </tr>
 <tr class="odd">
-<td align="center">1610612761</td>
-<td align="center">Toronto Raptors</td>
+<td align="center">1.611e+09</td>
+<td align="center">Brooklyn Nets</td>
 <td align="center">1</td>
-<td align="center">11</td>
+<td align="center">10</td>
 </tr>
 </tbody>
 </table>
-<table>
+<table style="width:97%;">
 <caption>Table continues below</caption>
 <colgroup>
-<col width="25%" />
-<col width="17%" />
-<col width="36%" />
-<col width="21%" />
+<col width="27%" />
+<col width="18%" />
+<col width="27%" />
+<col width="23%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -199,32 +207,33 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">48</td>
-<td align="center">Missed Shot</td>
-<td align="center">Driving Floating Jump Shot</td>
+<td align="center">22</td>
+<td align="center">Made Shot</td>
+<td align="center">Pullup Jump shot</td>
 <td align="center">2PT Field Goal</td>
 </tr>
 <tr class="even">
-<td align="center">47</td>
+<td align="center">11</td>
 <td align="center">Made Shot</td>
-<td align="center">Tip Layup Shot</td>
+<td align="center">Cutting Dunk Shot</td>
 <td align="center">2PT Field Goal</td>
 </tr>
 <tr class="odd">
-<td align="center">29</td>
-<td align="center">Missed Shot</td>
-<td align="center">Driving Layup Shot</td>
-<td align="center">2PT Field Goal</td>
+<td align="center">49</td>
+<td align="center">Made Shot</td>
+<td align="center">Pullup Jump shot</td>
+<td align="center">3PT Field Goal</td>
 </tr>
 </tbody>
 </table>
-<table style="width:100%;">
+<table>
 <caption>Table continues below</caption>
 <colgroup>
-<col width="31%" />
+<col width="25%" />
+<col width="21%" />
 <col width="22%" />
-<col width="23%" />
-<col width="23%" />
+<col width="20%" />
+<col width="10%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -232,42 +241,44 @@
 <th align="center">shot_zone_area</th>
 <th align="center">shot_zone_range</th>
 <th align="center">shot_distance</th>
+<th align="center">loc_x</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">In The Paint (Non-RA)</td>
+<td align="center">Mid-Range</td>
 <td align="center">Center(C)</td>
-<td align="center">8-16 ft.</td>
-<td align="center">11</td>
+<td align="center">16-24 ft.</td>
+<td align="center">22</td>
+<td align="center">-2</td>
 </tr>
 <tr class="even">
 <td align="center">Restricted Area</td>
 <td align="center">Center(C)</td>
 <td align="center">Less Than 8 ft.</td>
 <td align="center">0</td>
+<td align="center">9</td>
 </tr>
 <tr class="odd">
-<td align="center">Restricted Area</td>
+<td align="center">Above the Break 3</td>
 <td align="center">Center(C)</td>
-<td align="center">Less Than 8 ft.</td>
-<td align="center">3</td>
+<td align="center">24+ ft.</td>
+<td align="center">25</td>
+<td align="center">-20</td>
 </tr>
 </tbody>
 </table>
-<table>
+<table style="width:99%;">
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="27%" />
-<col width="21%" />
-<col width="15%" />
-<col width="7%" />
-<col width="7%" />
+<col width="11%" />
+<col width="30%" />
+<col width="23%" />
+<col width="16%" />
+<col width="8%" />
+<col width="8%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="center">loc_x</th>
 <th align="center">loc_y</th>
 <th align="center">shot_attempted_flag</th>
 <th align="center">shot_made_flag</th>
@@ -278,31 +289,28 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">2</td>
-<td align="center">114</td>
+<td align="center">220</td>
 <td align="center">1</td>
-<td align="center">0</td>
-<td align="center">20191022</td>
-<td align="center">TOR</td>
-<td align="center">NOP</td>
+<td align="center">1</td>
+<td align="center">20201222</td>
+<td align="center">BKN</td>
+<td align="center">GSW</td>
 </tr>
 <tr class="even">
-<td align="center">0</td>
-<td align="center">-6</td>
+<td align="center">-2</td>
 <td align="center">1</td>
 <td align="center">1</td>
-<td align="center">20191022</td>
-<td align="center">TOR</td>
-<td align="center">NOP</td>
+<td align="center">20201222</td>
+<td align="center">BKN</td>
+<td align="center">GSW</td>
 </tr>
 <tr class="odd">
-<td align="center">15</td>
-<td align="center">28</td>
+<td align="center">258</td>
 <td align="center">1</td>
-<td align="center">0</td>
-<td align="center">20191022</td>
-<td align="center">TOR</td>
-<td align="center">NOP</td>
+<td align="center">1</td>
+<td align="center">20201222</td>
+<td align="center">BKN</td>
+<td align="center">GSW</td>
 </tr>
 </tbody>
 </table>
@@ -327,6 +335,7 @@
 <p>From the plot, we can see that all rows are “completed cases”, and the total number of missing values for each variable is 0.</p>
 <p>As expected, both results indicates that our dataset contains no missing data. Therefore, we can finally conclude that there is no missing data in our datase and proceed to next steps.</p>
 
+</div>
 </div>
             </section>
 
