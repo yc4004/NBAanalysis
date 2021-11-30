@@ -8,3 +8,7 @@ missing-value
 missing-values
 detailed-shot-data
 detailed-shots-data
+detailed-shots-data-1
+on-general-player-and-team-level
+detailed-shots-data-2
+team-analysis

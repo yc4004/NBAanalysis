@@ -76,14 +76,20 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#detailed-shot-data"><i class="fa fa-check"></i><b>2.1</b> Detailed shot data</a></li>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#detailed-shots-data"><i class="fa fa-check"></i><b>2.1</b> Detailed shots data</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#detailed-shots-data-1"><i class="fa fa-check"></i><b>3.1</b> Detailed shots data</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#detailed-shots-data"><i class="fa fa-check"></i><b>4.1</b> Detailed shots data</a></li>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#detailed-shots-data-2"><i class="fa fa-check"></i><b>4.1</b> Detailed shots data</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#team-analysis"><i class="fa fa-check"></i><b>5.1</b> Team Analysis</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -109,9 +115,9 @@
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
 <p>Note that there is no downloading option for the data on NBA official website, so we need to scrape the data from the official website <a href="https://www.nba.com/stats/" class="uri">https://www.nba.com/stats/</a> using <code>GET()</code> from <code>httr</code> library.</p>
 <p>Since the data source is the NBA official website, it is considered reliable.</p>
-<div id="detailed-shot-data" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Detailed shot data</h2>
-<p>The scraping procedure for detailed shot data for 2020-21 Regular Season is as follows:</p>
+<div id="detailed-shots-data" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Detailed shots data</h2>
+<p>The scraping procedure for detailed shots data for 2020-21 Regular Season is as follows:</p>
 <ul>
 <li><p>For the detailed shooting data, we firstly land in the <a href="https://www.nba.com/stats/" class="uri">https://www.nba.com/stats/</a> webpage. Scrolling down, we can see a “Shotchart Search” section. Inputting one player’s name, taking Stephen Curry during 2021-22 season as example, we can land in the page <a href="https://www.nba.com/stats/events/?flag=3&amp;CFID=33&amp;CFPARAMS=2021-22&amp;PlayerID=201939&amp;ContextMeasure=FGA&amp;Season=2021-22&amp;section=player&amp;sct=hex" class="uri">https://www.nba.com/stats/events/?flag=3&amp;CFID=33&amp;CFPARAMS=2021-22&amp;PlayerID=201939&amp;ContextMeasure=FGA&amp;Season=2021-22&amp;section=player&amp;sct=hex</a>.</p></li>
 <li><p>In this page, we can see data with each row being a field goal that gives us information like the type of shot, whether it was successful, shot distance, etc. However, the exact location of the shot doesn’t appear.</p></li>

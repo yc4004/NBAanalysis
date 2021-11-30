@@ -1,1 +1,50 @@
 # Results
+
+```{r setup, include=FALSE}
+library(pander)
+library(knitr)
+library(tidyverse)
+library(readr)
+```
+
+```{r}
+shot_data = read_csv("shotchartdetail.csv")
+```
+
+
+In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
+
+1. (On general player and team level)
+What is the distribution of the total number of shots made for all players in the entire season? What about shot probability? Is there any difference between shots attempted and goaled for different teams in different zones? What about differences between the home team and visiting team?
+
+2. (On individual player level)
+Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?
+
+## Team Analysis
+
+```{r}
+# order teams based on total shot probability
+order <- shot_data %>%
+  select(team_name,shot_attempted_flag,shot_made_flag) %>%
+  group_by(team_name) %>%
+  summarize(attempts = sum(shot_attempted_flag),
+            goals = sum(shot_made_flag)) %>%
+  mutate(goal_prob = goals/attempts)  %>%
+  arrange(desc(goal_prob)) %>%
+  pull(team_name)
+
+shot_data %>%
+  select(team_name,shot_zone_range,shot_attempted_flag,shot_made_flag) %>%
+  mutate(team_name = factor(team_name, levels = order)) %>%
+  mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) %>%
+  group_by(team_name,shot_zone_range) %>%
+  summarize(attempts = sum(shot_attempted_flag),
+            goals = sum(shot_made_flag)) %>%
+  mutate(goal_prob = goals/attempts)  %>%
+  ggplot(aes(x = team_name, y = goal_prob, color = shot_zone_range, shape = shot_zone_range))+
+  geom_point()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  labs(title = "Scatter Plot of Goal Probability for Each Team", x = "Team", y = "Goal%")
+```
+
+
