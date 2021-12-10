@@ -1,6 +1,6 @@
 # Results
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 library(pander)
 library(knitr)
 library(tidyverse)
