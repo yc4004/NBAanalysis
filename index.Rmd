@@ -11,7 +11,7 @@ Basketball is a team sport in which the goal is to try to outscore the amount in
 
 The National Basketball Association (NBA) is the professional basketball league in the United States and provides a nice website with many statistics gathered on teams and players in the league: https://www.nba.com/stats/.
 
-Intrigued by a passion for basketball and the abundance of data resources on the NBA website, we picked up this topic for our final project and hope to take a small glance on what we are curious about through exploratory data analysis and visualization.
+As one of the most popular athletic leagues, NBA attracts elite players and these palyers represent the highest level of basketball in the world. However, the shooting behavior varies from player to player so intrigued by a passion for basketball and the abundance of data resources on the NBA website, we decided to implore the pattern of shooting behavaiors in NBA for our final project and hope to take a small glance on what we are curious about through exploratory data analysis and visualization.
 
 We propose the following questions to answer:
 
