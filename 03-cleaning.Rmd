@@ -18,5 +18,3 @@ For the detailed shots data, there are some categorical data which should be as 
 shot_data <- shot_data %>%
   mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) 
 ```
-
-

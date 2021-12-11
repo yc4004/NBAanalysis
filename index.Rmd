@@ -11,11 +11,11 @@ Basketball is a team sport in which the goal is to try to outscore the amount in
 
 The National Basketball Association (NBA) is the professional basketball league in the United States and provides a nice website with many statistics gathered on teams and players in the league: https://www.nba.com/stats/.
 
-As one of the most popular athletic leagues, NBA attracts elite players and these palyers represent the highest level of basketball in the world. However, the shooting behavior varies from player to player so intrigued by a passion for basketball and the abundance of data resources on the NBA website, we decided to implore the pattern of shooting behavaiors in NBA for our final project and hope to take a small glance on what we are curious about through exploratory data analysis and visualization.
+As one of the most popular athletic leagues, NBA attracts elite players and these players represent the highest level of basketball in the world. However, the shooting behavior varies from player to player and even team to team. Therefore, intrigued by a passion for basketball and the abundance of data resources on the NBA website, we decided to implore the pattern of shooting behaviors in NBA for our final project and hope to take a small glance on what we are curious about through exploratory data analysis and visualization.
 
 We propose the following questions to answer:
 
-1. (On general player and team level)
+1. (On team level)
 What is the distribution of the total number of shots made for all players in the entire season? What about shot probability? Is there any difference between shots attempted and goaled for different teams in different zones? What about differences between the home team and visiting team?
 
 2. (On individual player level)

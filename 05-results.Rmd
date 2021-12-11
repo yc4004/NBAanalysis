@@ -1,10 +1,15 @@
 # Results
 
 ```{r include=FALSE}
-library(pander)
-library(knitr)
 library(tidyverse)
-library(readr)
+library(ggplot2)
+library(GGally)
+library(vcd)
+library(RColorBrewer)
+library(ggalluvial)
+#devtools::install_github("timelyportfolio/parcoords")
+library(parcoords)
+library(pander)
 ```
 
 ```{r}
@@ -14,7 +19,7 @@ shot_data = read_csv("shotchartdetail.csv")
 
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
-1. (On general player and team level)
+1. (On team level)
 What is the distribution of the total number of shots made for all players in the entire season? What about shot probability? Is there any difference between shots attempted and goaled for different teams in different zones? What about differences between the home team and visiting team?
 
 2. (On individual player level)
@@ -162,7 +167,7 @@ plot_court = function(court_theme = court_themes$light, use_short_three = FALSE)
 plot_court(court_themes$light)
 ```
 
-## Team Analysis
+## Team Shooting Pattern Analysis
 
 ```{r}
 # order teams based on total shot probability
@@ -188,6 +193,24 @@ shot_data %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title = "Scatter Plot of Goal Probability for Each Team", x = "Team", y = "Goal%")
 ```
+Firstly, to get a general understanding of how many 2-point and 3-point shots each team made for season 2020-21, we create a Cleveland Dot Plot as follows:
+
+```{r}
+shot_data %>%
+  select(team_name, shot_type) %>%
+  group_by(team_name,shot_type) %>%
+  summarize(n = n(),.groups = 'drop') %>%
+  pivot_wider(values_from = n, names_from = shot_type) %>%
+  rename_all(make.names) %>%
+  rename(two_point_shots = X2PT.Field.Goal, three_point_shots = X3PT.Field.Goal) %>%
+  mutate(shots_sum = two_point_shots+ three_point_shots) %>% # calculate total
+  arrange(desc(shots_sum)) %>% # order by total
+  pivot_longer(cols = c("two_point_shots", "three_point_shots","shots_sum")) %>% # tidy the data
+  ggplot(aes(x = value, y = reorder(team_name, value), color = name))+
+  geom_point()+
+  labs(title = "Cleveland Dot Plot for Shooting Counts for each Team", x = "count", y = "Team Name")
+```
+
 
 ## Individual Player Analysis
 Here we will specially explore 

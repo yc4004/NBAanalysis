@@ -10,3 +10,4 @@ team-analysis
 individual-player-analysis
 interactive-component
 conclusion
+team-shooting-pattern-analysis
