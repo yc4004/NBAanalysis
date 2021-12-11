@@ -7,7 +7,6 @@ library(GGally)
 library(vcd)
 library(RColorBrewer)
 library(ggalluvial)
-#devtools::install_github("timelyportfolio/parcoords")
 library(parcoords)
 library(pander)
 ```
@@ -20,7 +19,7 @@ shot_data = read_csv("shotchartdetail.csv")
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
 1. (On team level)
-Does each team has different preference for 2 point shots and 3 point shots or shots in different zones? Does their field goal percentage affect the preference?
+Does each team has different preference for 2 point shots and 3 point shots? Does their field goal percentage related to the preference? Does the preference for 2 point shots and 3 point shots change period by period?
 
 2. (On individual player level)
 Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?
@@ -185,14 +184,36 @@ shot_data %>%
   ggplot(aes(x = value, y = reorder(team_name, value), color = name))+
   geom_point()+
   theme_linedraw()+ 
-  labs(title = "Cleveland Dot Plot for Attempted Shots Count for Each Team", x = "count", y = "Team Name")
+  labs(title = "2-point and 3-point Total Shots for Each Team", x = "count", y = "Team Name")
 ```
 
 From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn't vary a lot, ranging from around 6000 to 6500. However, for different teams, they have totally different preference for 2-point shots and 3-point shots, which may be resulted by types of players in that team. 
 
 For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league.
 
-After getting a general understanding of types and shots attempted for each team, now we want to focus on Field Goal Percentage ($\frac{\text{ total shots made}}{\text{total shots attempted}}$).
+After getting a general understanding of types and shots attempted for each team, now we want to focus on the Field Goal Percentage ($\frac{\text{ total shots made}}{\text{total shots attempted}}$).
+
+Here we will use diverging bar chart to compare the Field Goal % for 2-point and 3-point shots for each team, ordering by Field Goal % for 3-point shots:
+```{r}
+FG_shot_type <- shot_data %>%
+  select(team_name, shot_type,shot_attempted_flag,shot_made_flag) %>%
+  group_by(team_name,shot_type) %>%
+  summarize(attempts = sum(shot_attempted_flag),
+            goals = sum(shot_made_flag), .groups = 'drop') %>%
+  mutate(FGp = (goals/attempts)*100) %>%
+  select(team_name,shot_type,FGp) %>%
+  pivot_wider(values_from = FGp, names_from = shot_type)
+
+HH::likert(team_name~., FG_shot_type, positive.order = TRUE,
+           main = "FG% for 2-point and 3-point Shots for Each Team", 
+           xlab = "Percent", ylab = "Team Name")
+```
+
+From the plot, we can see that, generally, 3-point Field Goal is less than 2-point Field Goal, which makes sense because 3-point shots are harder to score regarding to the distance.
+
+It is difficult to see if their is any relationship between the team's preference for 2-point or 3-point shots and the FG%. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, their FG% for 3-point shots are neither highest or lowest in the league. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases. 
+
+Now we want to see the 
 
 
 
@@ -203,28 +224,16 @@ After getting a general understanding of types and shots attempted for each team
 
 
 ```{r}
-# order teams based on total shot probability
-order <- shot_data %>%
-  select(team_name,shot_attempted_flag,shot_made_flag) %>%
-  group_by(team_name) %>%
-  summarize(attempts = sum(shot_attempted_flag),
-            goals = sum(shot_made_flag)) %>%
-  mutate(goal_prob = goals/attempts)  %>%
-  arrange(desc(goal_prob)) %>%
-  pull(team_name)
+shot_type_FG <- shot_data %>%
+  select(c("event_type","shot_type")) %>%
+  #mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) %>%
+  group_by(shot_type,event_type) %>%
+  summarize(Freq=n(),.groups = 'drop')
 
-shot_data %>%
-  select(team_name,shot_zone_range,shot_attempted_flag,shot_made_flag) %>%
-  mutate(team_name = factor(team_name, levels = order)) %>%
-  mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) %>%
-  group_by(team_name,shot_zone_range) %>%
-  summarize(attempts = sum(shot_attempted_flag),
-            goals = sum(shot_made_flag)) %>%
-  mutate(goal_prob = goals/attempts)  %>%
-  ggplot(aes(x = team_name, y = goal_prob, color = shot_zone_range, shape = shot_zone_range))+
-  geom_point()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs(title = "Scatter Plot of Goal Probability for Each Team", x = "Team", y = "Goal%")
+mosaic(shot_type~event_type, direction = c("v","h"), shot_type_FG,
+       highlighting_fill = c("cornflowerblue", "grey80"),
+       labeling = labeling_border(tl_labels = c(FALSE, TRUE)),
+       main = "Mosaic Plot of Class Year and Number of Early Class")
 ```
 
 ## Individual Player Analysis
