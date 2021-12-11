@@ -19,7 +19,7 @@ shot_data = read_csv("shotchartdetail.csv")
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
 1. (On team level)
-Does each team has different preference for 2 point shots and 3 point shots? Does their field goal percentage related to the preference? Does the preference for 2 point shots and 3 point shots change period by period?
+What is the difference between teams on their shooting preference? Does the preference change period by period? Does their field goal percentage related to the preference? 
 
 2. (On individual player level)
 Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?
@@ -191,6 +191,42 @@ From the Cleveland Dot Plot, we can see that the total shots made by each team f
 
 For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league.
 
+Now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team. If the percentage increase, it means that the team prefer to make more 3-point shots.
+
+```{r}
+period_shots <- shot_data %>%
+  filter(period <= 4) %>%
+  select(team_name, shot_type, period) %>%
+  mutate(period = factor(period)) %>%
+  group_by(team_name, shot_type, period) %>%
+  summarize(n = n(),.groups = 'drop') %>%
+  pivot_wider(names_from = shot_type, values_from = n) %>%
+  rename_all(make.names) %>%
+  mutate(p = X3PT.Field.Goal/(X3PT.Field.Goal + X2PT.Field.Goal)) %>%
+  mutate(three_point_percentage_cut = cut(p, breaks=c(-Inf,0.3,0.35,0.4,0.45,0.5,Inf), 
+                            labels=c("<30%", "30%-35%", "35%-40%", "40%-45%","45%-50%","50%+"))) %>%
+  mutate(three_point_percentage_cut = as.character(three_point_percentage_cut)) %>% 
+  select(-c(X2PT.Field.Goal,X3PT.Field.Goal,p)) %>%
+  pivot_wider(names_from = period, values_from = three_point_percentage_cut) 
+
+colnames(period_shots) <- c("Name", "Period1", "Period2", "Period3","Period4")
+
+period_shots%>%
+  ggplot(aes( axis1 = Period1, axis2 = Period2, axis3 = Period3, axis4 = Period4))+
+  geom_alluvium(aes(fill = Name), width = 1/12)+
+  geom_stratum(width = 1/12, fill = "grey80", color = "dark grey")+
+  geom_label(stat="stratum",
+             aes(label = after_stat(stratum)))+
+  ggtitle("Alluvial Diagram of 3-point Shots Percentage Change")+
+  theme_void()+
+  theme(legend.position="bottom",legend.title = element_text(size=4), legend.text = element_text(size=4))
+
+```
+
+*(Here Each color represents one team. The percentage represent the percentage of 3-point shots of total number of shots attempted each period. The first axis means 1st period, and so on.)*
+
+From the graph we can see that, indeed, most of the teams will have different preference for 2-point and 3-point shots regarding to different periods of a game. A general trend is that, as the game approaches to 4th period, teams tend to make more 3-point shots compared to 2-point shots.
+
 After getting a general understanding of types and shots attempted for each team, now we want to focus on the Field Goal Percentage ($\frac{\text{ total shots made}}{\text{total shots attempted}}$).
 
 Here we will use diverging bar chart to compare the Field Goal % for 2-point and 3-point shots for each team, ordering by Field Goal % for 3-point shots:
@@ -212,29 +248,6 @@ HH::likert(team_name~., FG_shot_type, positive.order = TRUE,
 From the plot, we can see that, generally, 3-point Field Goal is less than 2-point Field Goal, which makes sense because 3-point shots are harder to score regarding to the distance.
 
 It is difficult to see if their is any relationship between the team's preference for 2-point or 3-point shots and the FG%. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, their FG% for 3-point shots are neither highest or lowest in the league. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases. 
-
-Now we want to see the 
-
-
-
-
-
-
-
-
-
-```{r}
-shot_type_FG <- shot_data %>%
-  select(c("event_type","shot_type")) %>%
-  #mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) %>%
-  group_by(shot_type,event_type) %>%
-  summarize(Freq=n(),.groups = 'drop')
-
-mosaic(shot_type~event_type, direction = c("v","h"), shot_type_FG,
-       highlighting_fill = c("cornflowerblue", "grey80"),
-       labeling = labeling_border(tl_labels = c(FALSE, TRUE)),
-       main = "Mosaic Plot of Class Year and Number of Early Class")
-```
 
 ## Individual Player Analysis
 Here we will specially explore 

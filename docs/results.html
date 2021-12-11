@@ -111,7 +111,7 @@
 <p>In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:</p>
 <ol style="list-style-type: decimal">
 <li><p>(On team level)
-Does each team has different preference for 2 point shots and 3 point shots? Does their field goal percentage related to the preference? Does the preference for 2 point shots and 3 point shots change period by period?</p></li>
+What is the difference between teams on their shooting preference? Does the preference change period by period? Does their field goal percentage related to the preference?</p></li>
 <li><p>(On individual player level)
 Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?</p></li>
 </ol>
@@ -123,13 +123,15 @@ Whether Russ Westbrook (Guard) has different shooting behavior (the shooting cou
 <p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn’t vary a lot, ranging from around 6000 to 6500. However, for different teams, they have totally different preference for 2-point shots and 3-point shots, which may be resulted by types of players in that team.</p>
 <p>For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league.</p>
+<p>Now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team. If the percentage increase, it means that the team prefer to make more 3-point shots.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><em>(Here Each color represents one team. The percentage represent the percentage of 3-point shots of total number of shots attempted each period. The first axis means 1st period, and so on.)</em></p>
+<p>From the graph we can see that, indeed, most of the teams will have different preference for 2-point and 3-point shots regarding to different periods of a game. A general trend is that, as the game approaches to 4th period, teams tend to make more 3-point shots compared to 2-point shots.</p>
 <p>After getting a general understanding of types and shots attempted for each team, now we want to focus on the Field Goal Percentage (<span class="math inline">\(\frac{\text{ total shots made}}{\text{total shots attempted}}\)</span>).</p>
 <p>Here we will use diverging bar chart to compare the Field Goal % for 2-point and 3-point shots for each team, ordering by Field Goal % for 3-point shots:
-<img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>From the plot, we can see that, generally, 3-point Field Goal is less than 2-point Field Goal, which makes sense because 3-point shots are harder to score regarding to the distance.</p>
 <p>It is difficult to see if their is any relationship between the team’s preference for 2-point or 3-point shots and the FG%. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, their FG% for 3-point shots are neither highest or lowest in the league. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases.</p>
-<p>Now we want to see the</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="individual-player-analysis" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Individual Player Analysis</h2>
