@@ -12,7 +12,6 @@ library(patchwork)
 library(readr)
 ```
 
-## Detailed shots data
 We will look at the missing pattern of detailed shots data for NBA Regular Season 2020-21. After getting the data out in the data sources portion, here we firstly have a look at the head of data: 
 
 ```{r data}
