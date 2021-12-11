@@ -20,7 +20,7 @@ shot_data = read_csv("shotchartdetail.csv")
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
 1. (On team level)
-What is the distribution of the total number of shots made for all players in the entire season? What about shot probability? Is there any difference between shots attempted and goaled for different teams in different zones? What about differences between the home team and visiting team?
+Does each team has different preference for 2 point shots and 3 point shots or shots in different zones? Does their field goal percentage affect the preference?
 
 2. (On individual player level)
 Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?
