@@ -190,9 +190,17 @@ shot_data %>%
 
 From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn't vary a lot, ranging from around 6000 to 6500. However, for different teams, they have totally different preference for 2-point shots and 3-point shots, which may be resulted by types of players in that team. 
 
-For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league. We could guess that San Antonio Spurs doesn't have a lot of 3-point players in the team so they prefer goaling by 2-point shots.
+For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league.
 
-After getting a general understanding of types and shots attempted for each team, now we want to focus on the Field Goal Percentage (total shots goaled/ total shots attempted). 
+After getting a general understanding of types and shots attempted for each team, now we want to focus on Field Goal Percentage ($\frac{\text{ total shots made}}{\text{total shots attempted}}$).
+
+
+
+
+
+
+
+
 
 ```{r}
 # order teams based on total shot probability
