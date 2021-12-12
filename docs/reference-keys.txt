@@ -11,3 +11,5 @@ individual-player-analysis
 interactive-component
 conclusion
 team-shooting-pattern-analysis
+individual-player-shooting-pattern-analysis
+league-shooting-pattern-analysis

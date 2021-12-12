@@ -10,6 +10,8 @@ library(ggalluvial)
 #devtools::install_github("timelyportfolio/parcoords")
 library(parcoords)
 library(pander)
+library(ggridges)
+library(patchwork)
 ```
 
 ```{r}
@@ -20,7 +22,11 @@ shot_data = read_csv("shotchartdetail.csv")
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
 1. (On team level)
+<<<<<<< HEAD
 What is the distribution of the total number of shots made for all players in the entire season? What about shot probability? Is there any difference between shots attempted and goaled for different teams in different zones? What about differences between the home team and visiting team?
+=======
+What are some differences between shooting behaviors preferences for each team? Does the preference change period by period? Does the preference corresponds to field goal percentage? 
+>>>>>>> d447ba33054c98d8b9d0681ba70ce4548229bb81
 
 2. (On individual player level)
 Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?
@@ -167,9 +173,31 @@ plot_court = function(court_theme = court_themes$light, use_short_three = FALSE)
 plot_court(court_themes$light)
 ```
 
+## League Shooting Pattern Analysis
+
+Firstly we will look at the distribution of shots made by the entire league.
+```{r}
+density_graph <- shot_data %>%
+  ggplot(aes(x = shot_distance)) + 
+  geom_histogram(aes(y = ..density..), bins = 25)+
+  geom_density(aes(color = "density curve"))+ 
+  labs(title = "Distribution of Shot Distance", x = "Shot Distance (in)", y = "Density")
+
+
+density_ridges_zone <- shot_data %>% 
+  ggplot(aes(x = shot_distance, y=shot_zone_basic)) +
+  geom_density_ridges(alpha = .5) + 
+  labs(title = "Ridgeline Plots of Shot Distance in Different Zones", x = "Shot Distance (in)", y = "Zone")
+
+density_graph + density_ridges_zone + plot_layout(ncol=1)
+```
+
+From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots.
+
+
 ## Team Shooting Pattern Analysis
 
-Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
+One striking difference between teams in shooting pattern is the team's preference for 2-point and 3-point shots. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
 
 ```{r}
 shot_data %>%
@@ -188,9 +216,13 @@ shot_data %>%
   labs(title = "Cleveland Dot Plot for Attempted Shots Count for Each Team", x = "count", y = "Team Name")
 ```
 
+<<<<<<< HEAD
 From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn't vary a lot, ranging from around 6000 to 6500. However, for different teams, they have totally different preference for 2-point shots and 3-point shots, which may be resulted by types of players in that team. 
 
 For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league. We could guess that San Antonio Spurs doesn't have a lot of 3-point players in the team so they prefer goaling by 2-point shots.
+=======
+From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn't vary a lot, ranging from around 6000 to 6500. However, for different teams, they have different preference for 2-point shots and 3-point shots. For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league. Therefore, we can conclude that teams vary significantly on their choice for making 2-point or 3-point shots.
+>>>>>>> d447ba33054c98d8b9d0681ba70ce4548229bb81
 
 After getting a general understanding of types and shots attempted for each team, now we want to focus on the Field Goal Percentage (total shots goaled/ total shots attempted). 
 
@@ -205,6 +237,7 @@ order <- shot_data %>%
   arrange(desc(goal_prob)) %>%
   pull(team_name)
 
+<<<<<<< HEAD
 shot_data %>%
   select(team_name,shot_zone_range,shot_attempted_flag,shot_made_flag) %>%
   mutate(team_name = factor(team_name, levels = order)) %>%
@@ -223,6 +256,35 @@ shot_data %>%
 
 ### Shooting behavior of Stephen Curry
 As a ground-breaking player, Stephen Curry showed the world how explosive his scoring ability was and he is making a NBA record of three pointers made while this project is getting done. Analyzing his shooting behavior would be a great angle to start.
+=======
+period_shots <- shot_data %>%
+  filter(period <= 4) %>%
+  select(team_name, shot_type, period) %>%
+  mutate(period = factor(period)) %>%
+  group_by(team_name, shot_type, period) %>%
+  summarize(n = n(),.groups = 'drop') %>%
+  pivot_wider(names_from = shot_type, values_from = n) %>%
+  rename_all(make.names) %>%
+  mutate(p = X3PT.Field.Goal/(X3PT.Field.Goal + X2PT.Field.Goal)) %>%
+  mutate(three_point_percentage_cut = cut(p, breaks=c(-Inf,0.3,0.35,0.4,0.45,0.5,Inf), 
+                            labels=c("<30%", "30%-35%", "35%-40%", "40%-45%","45%-50%","50%+"))) %>%
+  mutate(three_point_percentage_cut = as.character(three_point_percentage_cut)) %>% 
+  select(-c(X2PT.Field.Goal,X3PT.Field.Goal,p)) %>%
+  pivot_wider(names_from = period, values_from = three_point_percentage_cut) 
+  
+colnames(period_shots) <- c("Name", "Period1", "Period2", "Period3","Period4")
+
+period_shots%>%
+  ggplot(aes( axis1 = Period1, axis2 = Period2, axis3 = Period3, axis4 = Period4))+
+  geom_alluvium(aes(fill = Name), width = 1/12)+
+  geom_stratum(width = 1/12, fill = "grey80", color = "dark grey")+
+  geom_label(stat="stratum",
+             aes(label = after_stat(stratum)))+
+  ggtitle("Alluvial Diagram of 3-point Shots Percentage Change")+
+  theme_void()+
+  scale_fill_manual(values = getPalette(30))+
+  theme(legend.position="bottom",legend.title = element_text(size=4), legend.text = element_text(size=4))
+>>>>>>> d447ba33054c98d8b9d0681ba70ce4548229bb81
 
 ```{r}
 shot_steph = fetch_shots(201939,"2020-21","Regular Season")
@@ -724,5 +786,13 @@ shot_lebron %>%
 Based on the plot, LeBron James prefers attacking the tim to shooting long-distance in the second period and among four periods it is last one that he attempted most threes. Therefore, there is one more defending policy against LeBron should be focusing more on his layups in the first half and his threes in the second half.
 
 
+<<<<<<< HEAD
 
+=======
+It is difficult to see if the FG% for 2-point or 3-point corresponds to the team's preference. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, the FG% for 3-point shots are not highest for Utah Jazz and not lowest for San Antonio Spurs. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases.
+
+
+## Individual Player Shooting Pattern Analysis
+Here we will specially explore 
+>>>>>>> d447ba33054c98d8b9d0681ba70ce4548229bb81
 

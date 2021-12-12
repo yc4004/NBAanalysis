@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Results | NBA Analysis</title>
-  <meta name="description" content="Chapter 5 Results | NBA Analysis" />
+  <title>Chapter 5 Results | NBA Shooting Pattern Analysis</title>
+  <meta name="description" content="Chapter 5 Results | NBA Shooting Pattern Analysis" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Results | NBA Analysis" />
+  <meta property="og:title" content="Chapter 5 Results | NBA Shooting Pattern Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Results | NBA Analysis" />
+  <meta name="twitter:title" content="Chapter 5 Results | NBA Shooting Pattern Analysis" />
   
   
   
@@ -75,15 +75,13 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#detailed-shots-data"><i class="fa fa-check"></i><b>3.1</b> Detailed shots data</a></li>
-</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.1</b> Team Shooting Pattern Analysis</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#individual-player-analysis"><i class="fa fa-check"></i><b>5.2</b> Individual Player Analysis</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#league-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.1</b> League Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.2</b> Team Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#individual-player-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.3</b> Individual Player Shooting Pattern Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -98,7 +96,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NBA Analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NBA Shooting Pattern Analysis</a>
           </h1>
         </div>
 
@@ -111,31 +109,36 @@
 <p>In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:</p>
 <ol style="list-style-type: decimal">
 <li><p>(On team level)
-What is the difference between teams on their shooting preference? Does the preference change period by period? Does their field goal percentage related to the preference?</p></li>
+What are some differences between shooting behaviors preferences for each team? Does the preference change period by period? Does the preference corresponds to field goal percentage?</p></li>
 <li><p>(On individual player level)
 Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?</p></li>
 </ol>
 <p>Note that in the following analysis, we need to plot the NBA court to visualize the shooting data. The code for drawing the court is adapted from <a href="https://github.com/toddwschneider/ballr" class="uri">https://github.com/toddwschneider/ballr</a>, and the court graph is as follows:</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<div id="team-shooting-pattern-analysis" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Team Shooting Pattern Analysis</h2>
-<p>Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn’t vary a lot, ranging from around 6000 to 6500. However, for different teams, they have totally different preference for 2-point shots and 3-point shots, which may be resulted by types of players in that team.</p>
-<p>For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league.</p>
-<p>After generally seeing the preference of different teams, now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team. If the percentage increase, it means that the team prefer to make more 3-point shots.</p>
+<div id="league-shooting-pattern-analysis" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> League Shooting Pattern Analysis</h2>
+<p>Firstly we will look at the distribution of shots made by the entire league.
+<img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots.</p>
+</div>
+<div id="team-shooting-pattern-analysis" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Team Shooting Pattern Analysis</h2>
+<p>One striking difference between teams in shooting pattern is the team’s preference for 2-point and 3-point shots. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn’t vary a lot, ranging from around 6000 to 6500. However, for different teams, they have different preference for 2-point shots and 3-point shots. For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league. Therefore, we can conclude that teams vary significantly on their choice for making 2-point or 3-point shots.</p>
+<p>After generally seeing the preference of different teams, now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team. If the percentage increase, it means that the team prefer to make more 3-point shots.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p><em>(Here Each color represents one team. The percentage represent the percentage of 3-point shots of total number of shots attempted each period. The first axis means 1st period, and so on.)</em></p>
 <p>From the graph we can see that, indeed, most of the teams will have different preference for 2-point and 3-point shots regarding to different periods of a game. For example, Brooklyn Nets experienced largest change in the percentage of 3-point shots among other teams: at 1st period, it has percentage between 40% and 35%, and during the 2nd period, the percentage decreased to 35% - 40%. Then during 3rd period, the percentage increased to 40%-45% and finally reached 45%-50% at the 4th period.</p>
 <p>A general trend is that, as the game approaches to 4th period, teams tend to make more 3-point shots compared to their performance in 1st period.</p>
 <p>After getting a general understanding of types and shots attempted for each team, now we want to focus on the Field Goal Percentage (<span class="math inline">\(\frac{\text{ total shots made}}{\text{total shots attempted}}\)</span>).</p>
 <p>Here we will use diverging bar chart to compare the Field Goal % for 2-point and 3-point shots for each team, ordering by Field Goal % for 3-point shots:
-<img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>From the plot, we can see that, generally, 3-point Field Goal is less than 2-point Field Goal, which makes sense because 3-point shots are harder to score regarding to the distance.</p>
-<p>It is difficult to see if their is any relationship between the team’s preference for 2-point or 3-point shots and the FG%. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, their FG% for 3-point shots are neither highest or lowest in the league. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases.</p>
+<p>It is difficult to see if the FG% for 2-point or 3-point corresponds to the team’s preference. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, the FG% for 3-point shots are not highest for Utah Jazz and not lowest for San Antonio Spurs. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases.</p>
 </div>
-<div id="individual-player-analysis" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Individual Player Analysis</h2>
+<div id="individual-player-shooting-pattern-analysis" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Individual Player Shooting Pattern Analysis</h2>
 <p>Here we will specially explore</p>
 
 </div>
