@@ -4,7 +4,6 @@
 library(pander)
 library(knitr)
 library(tidyverse)
-library(hexbin)
 library(jsonlite)
 library(httr)
 library(scales)

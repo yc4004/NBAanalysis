@@ -16,6 +16,7 @@ As one of the most popular athletic leagues, NBA attracts elite players and thes
 We propose the following questions to answer:
 
 1. (On league level)
+What 
 
 2. (On team level)
 What are some differences between shooting behaviors preferences for each team? Does the preference change period by period? Does the preference corresponds to field goal percentage?
