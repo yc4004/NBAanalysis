@@ -1,12 +1,12 @@
 # Data transformation
 
-```{r load_library} 
+```{r} 
 library(tidyverse)
 library(readr)
 ```
 
 
-```{r load_data}
+```{r}
 shot_data = read_csv("shotchartdetail_regular.csv")
 ```
 

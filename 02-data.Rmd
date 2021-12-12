@@ -23,7 +23,7 @@ library(tidyverse)
 library(httr)
 ```
 
-```{r GET_shot_detail}
+```{r}
 
 headers = c(
   `Connection` = 'keep-alive',
@@ -105,7 +105,7 @@ fetch_shots = function(player_id, season, season_type) {
 shotchartdetail_regular = fetch_shots(0,"2020-21","Regular Season")
 ```
 
-```{r write_data}
+```{r}
 write.csv(shotchartdetail_regular, "shotchartdetail_regular.csv",row.names = FALSE)
 ```
 
