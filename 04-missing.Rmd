@@ -11,10 +11,15 @@ library(patchwork)
 library(readr)
 ```
 
-We will look at the missing pattern of detailed shots data for NBA Regular Season 2020-21. After getting the data out in the data sources portion, here we firstly have a look at the head of data: 
+We will look at the missing pattern of detailed shots data for NBA 2020-21 Regular Season and Playoffs. 
+
+**2020-21 Regular Season Shots Data**
+
+After getting the data out in the data sources portion, here we firstly have a look at the head of the NBA 2020-21 Regular Season data: 
 
 ```{r data}
-shot_data = read_csv("shotchartdetail_cleaned.csv")
+shot_data = read_csv("shotchartdetail_regular.csv")
+shot_data_playoff = read_csv("shotchartdetail_playoffs.csv")
 head(shot_data,3)  %>% pander()
 ```
 
@@ -110,8 +115,20 @@ missing_plots <- function(df, percent = TRUE){
 missing_plots(shot_data, FALSE)
 ```
 
-From the plot, we can see that all rows are "completed cases", and the total number of missing values for each variable is 0.
+From the plot, we can see that all rows are "completed cases", and the total number of missing values for each variable is 0, suggesting that there is no missing data.
 
-As expected, both results indicates that our dataset contains no missing data. Therefore, we can finally conclude that there is no missing data in our datase and proceed to next steps.
+**2020-21 Playoffs Shots Data**
 
+Since there is no missing data in regular season, we would expect that there is also no missing data in playoffs. Firstly, we check the total number of missing data:
+```{r}
+as_tibble(sum(is.na(shot_data_playoff))) %>% pander()
+```
 
+Now we plot the missing value plot:
+```{r}
+missing_plots(shot_data_playoff, FALSE)
+```
+
+From the plot, similar as before, we can see that all rows are "completed cases", and the total number of missing values for each variable is 0.
+
+Therefore, as expected, our results indicates that both of our dataset for regular season and playoffs contain no missing data. Therefore, we can finally conclude that there is no missing data in our datasets and proceed to next steps.
