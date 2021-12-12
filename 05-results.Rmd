@@ -72,7 +72,7 @@ From the first density histogram, we can see that the distribution of shot dista
 
 Taking a look at the last boxplot with the distribution of shot distance according to shot result, it is obvious that missed shots have more outliers with larger distance. This situation makes sense because it is harder to make a long-distanced shot comparing to a short-distanced one.
 
-### Relationship between Shot Result and Shot Distance
+### Relationship Between Shot Result and Shot Distance
 
 Since in previous part we realized that missed shots has more outliers with larger distance, we want to explore whether the shot distance will affect whether the shot is successfully made.
 
@@ -302,12 +302,12 @@ curry_heat | curry_fg
 
 These two plots use a graph of basketball court to visualize the performance of Stephen Curry at each point on the court and it divides the court to multiple zones. The color in the left graph indicate the total number of shots made by Stephen Curry, the color in the right graph indicates the field goal percentage of Stephen Curry in that specific zone comparing to the average level of the league. It is red if the player shoots above the league average and blue if lower than league average.
 
-In the plot above, we could first notice that Stephen Curry tries most of his shots in the paint (a rectangle area nearest to the basket) and out of three-point line. Again, this shooting behavior is a classical example of modern basketball: try less on mid-range shot. Another characteristic of his shooting is the range of his threes. We could even see multiple hexagons even 7 feet further away from the three-point line, which makes it harder to guard him.
+In the plot above, we could first notice that Stephen Curry tries most of his shots in the paint (a rectangle area nearest to the basket) and out of three-point line. Again, this shooting behavior is a classical example of modern basketball: try less on mid-range shot and more 2-point shots near hoop and 3-point shots. Another characteristic of his shooting is the range of his threes. We could even see multiple points scattered a long distance from the three-point line, which makes it harder to guard him.
 
 On the other hand, we could still see that Stephen has his weakness, which is left corner. His left-corner threes are deep blue so it would be a great strategy to limit him to shoot at that place. However, I think he is able to develope becasue he shoots very well on the other corner.
 
 
-### Shooting pattern in playoffs of LeBron James
+### Shooting Pattern in Playoffs of LeBron James
 
 We could always say that games of regular season do not really matter because being a championship depends on the performance in playoffs. So many top players choose to take as many rest as they can in regular season so that they could save more energy for the playoffs. Therefore, it would be great if we can find some differences of shooting behavior in regular season and playoffs. As a die-hard Lakers fan, I would choose to analyze LeBron James.
 
@@ -406,7 +406,7 @@ shot_data %>%
   xlab("Shooting Distance")
 ```
 
-Based on the plot, LeBron James prefers attacking the tim to shooting long-distance in the second quarter and among four periods it is last one that he attempted most threes. Therefore, there is one more defending policy against LeBron should be focusing more on his layups in the first half and his threes in the second half.
+Based on the plot, LeBron James prefers attacking the rim to shoot long-distance in the second quarter and among four periods it is last one that he attempted most threes. Therefore, there is one more defending policy against LeBron should be focusing more on his layups in the first half and his threes in the second half.
 
 ### Shooting Behavior of Giannis Antetokounmpo
 
