@@ -15,11 +15,11 @@ As one of the most popular athletic leagues, NBA attracts elite players and thes
 
 We propose the following questions to answer:
 
-1. (On league level)
-What 
+1. (On League Level)
+We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
 
-2. (On team level)
-What are some differences between shooting behaviors preferences for each team? Does the preference change period by period? Does the preference corresponds to field goal percentage?
+2. (On Team Level)
+Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
 
-3. (On individual player level)
-Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?
+3. (On Player Level)
+We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.

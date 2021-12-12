@@ -7,7 +7,7 @@ library(readr)
 
 
 ```{r load_data}
-shot_data = read_csv("shotchartdetail.csv")
+shot_data = read_csv("shotchartdetail_regular.csv")
 ```
 
 For the detailed shots data, there are some categorical data which should be as factor with levels. For example, for `shot_zone_range` feature, the level of category should be "Less Than 8 ft.", "8-16 ft.", "16-24 ft.", "24+ ft.", and "Back Court Shot" based on the distance from the basket.
@@ -16,3 +16,9 @@ For the detailed shots data, there are some categorical data which should be as 
 shot_data <- shot_data %>%
   mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) 
 ```
+
+```{r}
+write.csv(shot_data, "shotchartdetail_regular_updated.csv",row.names = FALSE)
+```
+
+

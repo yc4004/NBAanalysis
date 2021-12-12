@@ -26,21 +26,21 @@ library(ggalluvial)
 ```
 
 ```{r}
-shot_data = read_csv("shotchartdetail_regular.csv")
+shot_data = read_csv("shotchartdetail_regular_updated.csv")
 shot_data_playoff = read_csv("shotchartdetail_playoffs.csv")
 ```
 
 
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
-1. (On league level)
-What 
+1. (On League Level)
+We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
 
-2. (On team level)
-What are some differences between shooting behaviors preferences for each team? Does the preference change period by period? Does the preference corresponds to field goal percentage?
+2. (On Team Level)
+Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
 
-3. (On individual player level)
-Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?
+3. (On Player Level)
+We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.
 
 ## League Shooting Pattern Analysis
 
@@ -61,12 +61,38 @@ density_ridges_zone <- shot_data %>%
 density_graph + density_ridges_zone + plot_layout(ncol=1)
 ```
 
-From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball
+From the density histogram, we can see that the distribution of shot distance has two apparent peaks. Most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball.
+
+Then we can use boxplot to explore the distribution of shots made and missed on different zones based on minutes remaining in the period.
+
+```{r}
+shot_data %>%
+  ggplot(aes(x= shot_zone_area, y = minutes_remaining)) + 
+  geom_boxplot()+
+  facet_wrap(~event_type)+
+  coord_flip()+
+  labs(title = "Boxplots of Shot Zones agains Minutes Remaining", x = "Shot Zone", y = "Minutes Remaining")
+  
+```
+
+From this boxplot, surprisingly, except Back Court shots (which sometimes only happen when there is no time remaining), the distribution of missed shots are almost the same between different zones. However, the distribution of shots made in different zones varies.
+
+```{r}
+shot_mos <- shot_data %>%
+  select(c("event_type","shot_type","period")) %>%
+  group_by(event_type,shot_type,period) %>%
+  summarize(Freq=n(),.groups = 'drop')
+
+mosaic(event_type~shot_type + period, direction = c("v","v","h"), shot_mos,
+       highlighting_fill = c("cornflowerblue","grey80"),
+       labeling = labeling_border(rot_labels = c(0,0,0)),
+       main = "Mosaic Plot")
+```
 
 
 ## Team Shooting Pattern Analysis
 
-One striking difference between teams in shooting pattern is the team's preference for 2-point and 3-point shots. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
+Although in previous section, we realized that there is no striking difference in total number and FG% for 2-point and 3-point shots in each period for the entire league, we somewhat expect this shooting pattern to differ team by team. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
 
 ```{r}
 shot_data %>%
