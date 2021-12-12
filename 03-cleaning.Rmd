@@ -21,7 +21,7 @@ shot_data <- shot_data %>%
 2. `period` column should be ordinal factors rather than numbers.
 ```{r, echo =TRUE}
 shot_data <- shot_data %>%
-  mutate(period = factor(period, levels = c("1","2","3","4")))
+  mutate(period = factor(period, levels = c("1","2","3","4","5","6")))
 ```
 
 3.`shot_zone_range` column should be ordinal factors with the levels ordered by the distance from the basket.
