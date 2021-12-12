@@ -86,6 +86,7 @@
 <li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#shooting-behavior-of-stephen-curry"><i class="fa fa-check"></i><b>5.3.1</b> Shooting behavior of Stephen Curry</a></li>
 <li class="chapter" data-level="5.3.2" data-path="results.html"><a href="results.html#shooting-pattern-in-playoffs-of-lebron-james"><i class="fa fa-check"></i><b>5.3.2</b> Shooting pattern in playoffs of LeBron James</a></li>
 <li class="chapter" data-level="5.3.3" data-path="results.html"><a href="results.html#analysis-on-shooting-behavior-in-different-periods-of-lebron-james"><i class="fa fa-check"></i><b>5.3.3</b> Analysis on shooting behavior in different periods of LeBron James</a></li>
+<li class="chapter" data-level="5.3.4" data-path="results.html"><a href="results.html#shooting-behavior-of-giannis-antetokounmpo"><i class="fa fa-check"></i><b>5.3.4</b> Shooting Behavior of Giannis Antetokounmpo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
@@ -113,12 +114,13 @@
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
 <p>In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:</p>
 <ol style="list-style-type: decimal">
+<li><p>(On league level)
+What</p></li>
 <li><p>(On team level)
 What are some differences between shooting behaviors preferences for each team? Does the preference change period by period? Does the preference corresponds to field goal percentage?</p></li>
 <li><p>(On individual player level)
 Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?</p></li>
 </ol>
-<p>Note that in the following analysis, we need to plot the NBA court to visualize the shooting data. The code for drawing the court is adapted from <a href="https://github.com/toddwschneider/ballr" class="uri">https://github.com/toddwschneider/ballr</a>.</p>
 <div id="league-shooting-pattern-analysis" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> League Shooting Pattern Analysis</h2>
 <p>Firstly we will look at the distribution of distance of shots by the entire league.
@@ -153,16 +155,22 @@ Whether Russ Westbrook (Guard) has different shooting behavior (the shooting cou
 </div>
 <div id="shooting-pattern-in-playoffs-of-lebron-james" class="section level3" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Shooting pattern in playoffs of LeBron James</h3>
-<p>We could always say that games of regular season do not really matter because being a championship depends on the performance in playoffs. So many top players choose to take as many rest as they can in regual season so that they could save more energy for the playoffs. Therefore, it would be great if we can find some differences of shooting behavior in regular season and playoffs. As a die-hard Lakers fan, I would choose to analyze LeBron James.</p>
+<p>We could always say that games of regular season do not really matter because being a championship depends on the performance in playoffs. So many top players choose to take as many rest as they can in regular season so that they could save more energy for the playoffs. Therefore, it would be great if we can find some differences of shooting behavior in regular season and playoffs. As a die-hard Lakers fan, I would choose to analyze LeBron James.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>By looking at the regular season shot chart on the left, it is obvious that LeBron did fantastic in the paint, which shows that his advantage near the basketball still exists. In contrary, he also tried a lot mid range shots and threes but the results was not ideal, except that his shooting percentage on the left corner is extremely high, where by chance Stephen Curry was not good at.</p>
 <p>Comparing the performance in regular season and playoffs, we could see that although LeBron James still did better than average in the semi-circle area under the basket, his shooting significantly declined in that area. It might be the reason why Lakers in this season did not make it to the finals. Moreover, he still behaved well on the left corner in playoffs than the other one so the defending strategy against LeBron should be opposite to Stephen Curry.</p>
 </div>
 <div id="analysis-on-shooting-behavior-in-different-periods-of-lebron-james" class="section level3" number="5.3.3">
 <h3><span class="header-section-number">5.3.3</span> Analysis on shooting behavior in different periods of LeBron James</h3>
 <p>Every basketball game has four periods and athletes would get exhausted when game is getting to the end, so it is important to arrange the rest and the rush hour properly. Therefore, let us take a look at the shooting behavior of LeBron James in different periods and hope to find some special patterns in it.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>Based on the plot, LeBron James prefers attacking the tim to shooting long-distance in the second period and among four periods it is last one that he attempted most threes. Therefore, there is one more defending policy against LeBron should be focusing more on his layups in the first half and his threes in the second half.</p>
-<p>It is difficult to see if the FG% for 2-point or 3-point corresponds to the team’s preference. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, the FG% for 3-point shots are not highest for Utah Jazz and not lowest for San Antonio Spurs. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Based on the plot, LeBron James prefers attacking the tim to shooting long-distance in the second quarter and among four periods it is last one that he attempted most threes. Therefore, there is one more defending policy against LeBron should be focusing more on his layups in the first half and his threes in the second half.</p>
+</div>
+<div id="shooting-behavior-of-giannis-antetokounmpo" class="section level3" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> Shooting Behavior of Giannis Antetokounmpo</h3>
+<p>Giannis Antetokounmpo, AKA Greek Freak, was experiencing his best seasons in past two years. MVP winner, All-star and last but not least, NBA championship. His athleticism is so phenomenol such that he could win all even without good shooting ability. While in the shock by shooting ability of Stephen Curry, let us take a look at Giannis Antetokounmpo, another side of basketball.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Based on this alluvial diagram, we could see that Giannis Antetokounmpo in this season spent most his attempts on 2 pointers and two thirds of his shots happened less than 8 feet away from the basket. As a right-handed player, it seems like that he does not have preference on which side to shoot. Moreover, after comparing the shot attempted at left side center and right side center, we could find that he approached the rim more often from the left although he is right-handed. This might be inspirational to his defenders that it is better to focus on his left hand. At last, in his fewer long-distance attempts, he did not very well because we could see more blue flow in the long-distance area. Therefore, he still have a lot of potential to stimulate and there are more accomplishment waiting for him if he could work on his weakness.</p>
 
 </div>
 </div>

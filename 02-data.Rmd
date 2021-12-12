@@ -2,9 +2,13 @@
 
 Note that there is no downloading option for the data on NBA official website, so we need to scrape the data from the official website https://www.nba.com/stats/ using `GET()` from `httr` library.
 
-Since the data source is the NBA official website, it is considered reliable. 
+Since the data source is the NBA official website, and we scraped the data directly from it, it is considered reliable. 
 
-In this project we want to focus on the data for the last regular season, the 2020-21 Regular Season. The scraping procedure for detailed shots data as follows:
+In this project we want to focus on the data for the last regular season and playoffs, meaning the 2020-21 Regular Season and Playoffs. 
+
+**2020-21 Regular Season Shots Data**
+
+The scraping procedure for detailed shots for 2020-21 Regular Season data as follows:
 
 * For the detailed shooting data, we firstly land in the https://www.nba.com/stats/ webpage. Scrolling down, we can see a "Shotchart Search" section. Inputting one player's name, taking Stephen Curry during 2021-22 season as example, we can land in the page https://www.nba.com/stats/events/?flag=3&CFID=33&CFPARAMS=2021-22&PlayerID=201939&ContextMeasure=FGA&Season=2021-22&section=player&sct=hex. 
 
@@ -97,15 +101,26 @@ fetch_shots = function(player_id, season, season_type) {
   return(shots)
 }
 
-shotchartdetail = fetch_shots(0,"2020-21","Regular Season")
+shotchartdetail_regular = fetch_shots(0,"2020-21","Regular Season")
 ```
 
 ```{r write_data}
-write.csv(shotchartdetail, "shotchartdetail.csv",row.names = FALSE)
+write.csv(shotchartdetail_regular, "shotchartdetail_regular.csv",row.names = FALSE)
 ```
 
-After building the function to grab shots data using `GET()` and doing simple data preprocessing, our final shot data contains in total 24 columns and around 200,000 observations. The variables include player information (ID, name), team information (ID, name), game information (ID, date), and shot information (period, minutes and seconds remaining, whether shot successful, XY location, shot zone, shot area, etc.) All variables are in either string or integer format except date.
+After building the function to grab shots data using `GET()` and doing simple data preprocessing, our final 2020-21 Regular Season Shots Data contains in total 24 columns and around 200,000 observations. 
 
+The variables include player information (ID, name), team information (ID, name), game information (ID, date), and shot information (period, minutes and seconds remaining, whether shot successful, XY location, shot zone, shot area, etc.). All variables are in either string or integer format except date.
+
+**2020-21 Playoffs Shots Data**
+
+Using a similar way, we can get the detailed shots data for Playoffs. 
+```{r}
+shotchartdetail_playoffs = fetch_shots(0,"2020-21","Playoffs")
+write.csv(shotchartdetail_playoffs, "shotchartdetail_playoffs.csv",row.names = FALSE)
+```
+
+Our 2020-21 Playoffs Shots Data contain a total of 14771 observations, and the same variable as the 2020-21 Regular Season Shots Data.
 
 
 

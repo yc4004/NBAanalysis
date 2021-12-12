@@ -16,3 +16,4 @@ league-shooting-pattern-analysis
 shooting-behavior-of-stephen-curry
 shooting-pattern-in-playoffs-of-lebron-james
 analysis-on-shooting-behavior-in-different-periods-of-lebron-james
+shooting-behavior-of-giannis-antetokounmpo
