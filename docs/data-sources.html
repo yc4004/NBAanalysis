@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data sources | NBA Analysis</title>
-  <meta name="description" content="Chapter 2 Data sources | NBA Analysis" />
+  <title>Chapter 2 Data sources | NBA Shooting Pattern Analysis</title>
+  <meta name="description" content="Chapter 2 Data sources | NBA Shooting Pattern Analysis" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data sources | NBA Analysis" />
+  <meta property="og:title" content="Chapter 2 Data sources | NBA Shooting Pattern Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data sources | NBA Analysis" />
+  <meta name="twitter:title" content="Chapter 2 Data sources | NBA Shooting Pattern Analysis" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Anne Lin, Yanbing Chen" />
 
 
-<meta name="date" content="2021-12-11" />
+<meta name="date" content="2021-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -75,15 +75,18 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#detailed-shots-data"><i class="fa fa-check"></i><b>3.1</b> Detailed shots data</a></li>
-</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.1</b> Team Shooting Pattern Analysis</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#individual-player-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.2</b> Individual Player Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#league-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.1</b> League Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.2</b> Team Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#individual-player-analysis"><i class="fa fa-check"></i><b>5.3</b> Individual Player Analysis</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#shooting-behavior-of-stephen-curry"><i class="fa fa-check"></i><b>5.3.1</b> Shooting behavior of Stephen Curry</a></li>
+<li class="chapter" data-level="5.3.2" data-path="results.html"><a href="results.html#shooting-pattern-in-playoffs-of-lebron-james"><i class="fa fa-check"></i><b>5.3.2</b> Shooting pattern in playoffs of LeBron James</a></li>
+<li class="chapter" data-level="5.3.3" data-path="results.html"><a href="results.html#analysis-on-shooting-behavior-in-different-periods-of-lebron-james"><i class="fa fa-check"></i><b>5.3.3</b> Analysis on shooting behavior in different periods of LeBron James</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -98,7 +101,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NBA Analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NBA Shooting Pattern Analysis</a>
           </h1>
         </div>
 
@@ -109,15 +112,21 @@
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
 <p>Note that there is no downloading option for the data on NBA official website, so we need to scrape the data from the official website <a href="https://www.nba.com/stats/" class="uri">https://www.nba.com/stats/</a> using <code>GET()</code> from <code>httr</code> library.</p>
-<p>Since the data source is the NBA official website, it is considered reliable.</p>
-<p>In this project we want to focus on the data for the last regular season, the 2020-21 Regular Season. The scraping procedure for detailed shots data as follows:</p>
+<p>Since the data source is the NBA official website, and we scraped the data directly from it, it is considered reliable.</p>
+<p>In this project we want to focus on the data for the last regular season and playoffs, meaning the 2020-21 Regular Season and Playoffs.</p>
+<p><strong>2020-21 Regular Season Shots Data</strong></p>
+<p>The scraping procedure for detailed shots for 2020-21 Regular Season data as follows:</p>
 <ul>
 <li><p>For the detailed shooting data, we firstly land in the <a href="https://www.nba.com/stats/" class="uri">https://www.nba.com/stats/</a> webpage. Scrolling down, we can see a “Shotchart Search” section. Inputting one player’s name, taking Stephen Curry during 2021-22 season as example, we can land in the page <a href="https://www.nba.com/stats/events/?flag=3&amp;CFID=33&amp;CFPARAMS=2021-22&amp;PlayerID=201939&amp;ContextMeasure=FGA&amp;Season=2021-22&amp;section=player&amp;sct=hex" class="uri">https://www.nba.com/stats/events/?flag=3&amp;CFID=33&amp;CFPARAMS=2021-22&amp;PlayerID=201939&amp;ContextMeasure=FGA&amp;Season=2021-22&amp;section=player&amp;sct=hex</a>.</p></li>
 <li><p>In this page, we can see data with each row being a field goal that gives us information like the type of shot, whether it was successful, shot distance, etc. However, the exact location of the shot doesn’t appear.</p></li>
 <li><p>To access the detailed shots location data, we can right click on the webpage and select “Inspect” and navigate to the “Network” tab. Then we can find the <code>shotchartdetail</code> data (if not appear, refresh page). Once find it, right clicking it and open it in a new tab, so we can get the URL.</p></li>
 <li><p>After getting the URL, we can use the url to import the data on the webpage into our R studio using <code>GET()</code> function.</p></li>
 </ul>
-<p>After building the function to grab shots data using <code>GET()</code> and doing simple data preprocessing, our final shot data contains in total 24 columns and around 200,000 observations. The variables include player information (ID, name), team information (ID, name), game information (ID, date), and shot information (period, minutes and seconds remaining, whether shot successful, XY location, shot zone, shot area, etc.) All variables are in either string or integer format except date.</p>
+<p>After building the function to grab shots data using <code>GET()</code> and doing simple data preprocessing, our final 2020-21 Regular Season Shots Data contains in total 24 columns and around 200,000 observations.</p>
+<p>The variables include player information (ID, name), team information (ID, name), game information (ID, date), and shot information (period, minutes and seconds remaining, whether shot successful, XY location, shot zone, shot area, etc.). All variables are in either string or integer format except date.</p>
+<p><strong>2020-21 Playoffs Shots Data</strong></p>
+<p>Using a similar way, we can get the detailed shots data for Playoffs.</p>
+<p>Our 2020-21 Playoffs Shots Data contain a total of 14771 observations, and the same variable as the 2020-21 Regular Season Shots Data.</p>
 
 </div>
             </section>

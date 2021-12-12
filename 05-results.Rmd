@@ -22,10 +22,13 @@ library(httr)
 library(scales)
 library(RCurl)
 library(jpeg)
+library(ggalluvial)
+
 ```
 
 ```{r}
-shot_data = read_csv("shotchartdetail.csv")
+shot_data = read_csv("shotchartdetail_regular.csv")
+shot_data_playoff = read_csv("shotchartdetail_playoffs.csv")
 ```
 
 
@@ -35,12 +38,10 @@ In this chapter, we will our process to come up with the answers and our conclus
 We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
 
 2. On Team Level
-What are some differences between shooting behaviors preferences for each team? Does the preference change period by period? Does the preference corresponds to field goal percentage? 
+Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
 
 3. On Player Level
 We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.
-
-Note that in the following analysis, we need to plot the NBA court to visualize the shooting data. The code for drawing the court is adapted from https://github.com/toddwschneider/ballr, and the court graph is as follows:
 
 ## League Shooting Pattern Analysis
 
@@ -64,7 +65,10 @@ density_graph + density_ridges_zone + plot_layout(ncol=1)
 From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball.
 
 
-
+```{r}
+boxplot(shot_distance~event_type,data=shot_data,horizontal=TRUE,main="Shot Distance for shots missed and made",col="lightblue",border="black",las=2,ylab='',cex.axis=0.5)
+```
+Then we take a look at the relationship between shot distance and it is obvious that missed shots have higher distance which makes sense to us because it is always harder to make a long-distanced shot than a short-distanced one.
 
 ## Team Shooting Pattern Analysis
 
@@ -202,13 +206,14 @@ curry_fg <- shot_steph %>%
   ggplot(aes(x=loc_x, y=loc_y)) + 
   annotation_custom(court, -250, 250, -50, 420) +
   geom_point(aes(color = FG_comp)) +
-  scale_color_gradient2(midpoint = 0, low = "cornflowerblue", mid = "ivory",
+  scale_color_gradient2(midpoint = 0, low = "cornflowerblue", mid = "cornsilk2",
                             high = "brown3", name = "FG% compared to league average" )+
   xlim(-250, 250) +
   ylim(-50, 420)+
   labs(title = "Stephen Curry FG% Compared to League Average")+
   theme_void()+
   theme(legend.position="bottom")
+
 curry_heat | curry_fg
 ```
 
@@ -221,7 +226,83 @@ On the other hand, we could still see that Stephen has his weakness, which is le
 
 ### Shooting pattern in playoffs of LeBron James
 
-We could always say that games of regular season do not really matter because being a championship depends on the performance in playoffs. So many top players choose to take as many rest as they can in regual season so that they could save more energy for the playoffs. Therefore, it would be great if we can find some differences of shooting behavior in regular season and playoffs. As a die-hard Lakers fan, I would choose to analyze LeBron James.
+We could always say that games of regular season do not really matter because being a championship depends on the performance in playoffs. So many top players choose to take as many rest as they can in regular season so that they could save more energy for the playoffs. Therefore, it would be great if we can find some differences of shooting behavior in regular season and playoffs. As a die-hard Lakers fan, I would choose to analyze LeBron James.
+
+```{r}
+shot_lebron <-  shot_data %>%
+  filter(player_name == "LeBron James")
+
+shot_lebron_playoff <-  shot_data_playoff %>%
+  filter(player_name == "LeBron James")
+
+# League playoff average FG% on different zones
+league_avg_playoff <- shot_data_playoff %>%
+  select(shot_zone_basic, shot_attempted_flag,shot_made_flag) %>%
+  group_by(shot_zone_basic) %>%
+  summarize(shot_attempted = sum(shot_attempted_flag), shot_made = sum(shot_made_flag)) %>%
+  mutate(FGp = shot_made/shot_attempted) %>%
+  select('FGp')
+
+# LeBron's FG% on different zones
+shot_lebron_fgp <- shot_lebron %>%
+  select(shot_zone_basic, shot_attempted_flag,shot_made_flag) %>%
+  group_by(shot_zone_basic) %>%
+  summarize(shot_attempted = sum(shot_attempted_flag), shot_made = sum(shot_made_flag)) %>%
+  mutate(FGp = shot_made/shot_attempted)
+
+# LeBron's FG% on different zones playoff
+shot_lebron_fgp_playoff <- shot_lebron_playoff %>%
+  select(shot_zone_basic, shot_attempted_flag,shot_made_flag) %>%
+  group_by(shot_zone_basic) %>%
+  summarize(shot_attempted = sum(shot_attempted_flag), shot_made = sum(shot_made_flag)) %>%
+  mutate(FGp = shot_made/shot_attempted)
+
+# Compare LeBron's FG% on different zones with League Average
+shot_lebron_fgp$league_avg <- league_avg$FGp[-2]
+shot_lebron_fgp$FGp_diff = (shot_lebron_fgp$FGp - shot_lebron_fgp$league_avg)*100
+
+# Compare LeBron's Palyoff FG% on different zones with League Average
+shot_lebron_fgp_playoff$league_avg <- league_avg_playoff$FGp[-2]
+shot_lebron_fgp_playoff$FGp_diff = (shot_lebron_fgp_playoff$FGp - shot_lebron_fgp_playoff$league_avg)*100
+
+lebron_fg <- shot_lebron %>%
+  mutate(FG_comp = case_when(shot_zone_basic == "Above the Break 3" ~ shot_lebron_fgp$FGp_diff[1],
+                             shot_zone_basic == "In The Paint (Non-RA)" ~ shot_lebron_fgp$FGp_diff[2], 
+                             shot_zone_basic == "Left Corner 3" ~ shot_lebron_fgp$FGp_diff[3], 
+                             shot_zone_basic == "Mid-Range" ~ shot_lebron_fgp$FGp_diff[4], 
+                             shot_zone_basic == "Restricted Area" ~ shot_lebron_fgp$FGp_diff[5],
+                             shot_zone_basic == "Right Corner 3" ~ shot_lebron_fgp$FGp_diff[6])) %>%
+  ggplot(aes(x=loc_x, y=loc_y)) + 
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(color = FG_comp)) +
+  scale_color_gradient2(midpoint = 0, low = "cornflowerblue", mid = "cornsilk2",
+                            high = "brown3", name = "FG% compared to league average" )+
+  xlim(-250, 250) +
+  ylim(-50, 420)+
+  labs(title = "Regular Season")+
+  theme_void()+
+  theme(legend.position="bottom")
+
+lebron_fg_playoff <- shot_lebron_playoff %>%
+  mutate(FG_comp = case_when(shot_zone_basic == "Above the Break 3" ~ shot_lebron_fgp_playoff$FGp_diff[1],
+                             shot_zone_basic == "In The Paint (Non-RA)" ~ shot_lebron_fgp_playoff$FGp_diff[2], 
+                             shot_zone_basic == "Left Corner 3" ~ shot_lebron_fgp_playoff$FGp_diff[3], 
+                             shot_zone_basic == "Mid-Range" ~ shot_lebron_fgp_playoff$FGp_diff[4], 
+                             shot_zone_basic == "Restricted Area" ~ shot_lebron_fgp_playoff$FGp_diff[5],
+                             shot_zone_basic == "Right Corner 3" ~ shot_lebron_fgp_playoff$FGp_diff[6])) %>%
+  ggplot(aes(x=loc_x, y=loc_y)) + 
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(color = FG_comp)) +
+  scale_color_gradient2(midpoint = 0, low = "cornflowerblue", mid = "cornsilk2",
+                            high = "brown3", name = "FG% compared to league average" )+
+  xlim(-250, 250) +
+  ylim(-50, 420)+
+  labs(title = "Playoffs")+
+  theme_void()+
+  theme(legend.position="bottom")
+
+lebron_fg|lebron_fg_playoff + plot_annotation(title = "LeBron FG% Compared to League Average")
+```
 
 By looking at the regular season shot chart on the left, it is obvious that LeBron did fantastic in the paint, which shows that his advantage near the basketball still exists. In contrary, he also tried a lot mid range shots and threes but the results was not ideal, except that his shooting percentage on the left corner is extremely high, where by chance Stephen Curry was not good at.
 
@@ -249,7 +330,6 @@ Based on the plot, LeBron James prefers attacking the tim to shooting long-dista
 Giannis Antetokounmpo, AKA Greek Freak, was experiencing his best seasons in past two years. MVP winner, All-star and last but not least, NBA championship. His athleticism is so phenomenol such that he could win all even without good shooting ability. While in the shock by shooting ability of Stephen Curry, let us take a look at Giannis Antetokounmpo, another side of basketball.
 
 ```{r}
-library(ggalluvial)
 shot_data %>%
   filter(player_name == 'Giannis Antetokounmpo') %>%
   mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) %>%
