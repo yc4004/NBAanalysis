@@ -47,7 +47,7 @@ Sometimes a single player could make huge impact on games. We choose three most 
 
 ### Distribution of Shot Distance
 
-```{r}
+```{r shoot_dist}
 density_graph <- shot_data %>%
   ggplot(aes(x = shot_distance)) + 
   geom_histogram(aes(y = ..density..), bins = 25)+
@@ -76,7 +76,7 @@ Taking a look at the last boxplot with the distribution of shot distance accordi
 
 Since in previous part we realized that missed shots has more outliers with larger distance, we want to explore whether the shot distance will affect whether the shot is successfully made.
 
-```{r}
+```{r mosaic}
 shot_dis_mos <- shot_data %>%
   select(c("event_type","shot_zone_range")) %>%
   mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) %>%
@@ -112,7 +112,7 @@ Since the p-value is less than 0.01, meaning the probability of us accepting the
 
 Every NBA game has four regular periods to decide which team is winner (there would over time periods if score is tied), we want to see generally how well all players shoot in different periods.
 
-```{r}
+```{r period_bar}
 shot_cnt <- shot_data %>%
   select(c("event_type","shot_type","period")) %>%
   filter(period <= 4) %>%
@@ -150,7 +150,7 @@ At next step, we would go deeper onto the shooting performance on team level.
 
 Although in previous section, we realized that there is no striking difference in total number and FG% for 2-point and 3-point shots in each period for the entire league, we somewhat expect this shooting pattern to differ team by team. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
 
-```{r}
+```{r team_pref}
 shot_data %>%
   select(team_name, shot_type) %>%
   group_by(team_name,shot_type) %>%
@@ -173,7 +173,7 @@ From the Cleveland Dot Plot, we can see that the total shots made by each team f
 
 After generally seeing the preference of different teams, now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team ($\text{percentage} = \frac{\text{3-point shots attempted}}{\text{all shots attempted}}$). If the percentage increase, it means that the team prefer to make more 3-point shots.
 
-```{r}
+```{r alluvial_pref_period}
 getPalette = colorRampPalette(brewer.pal(9, "Set1"))
 
 period_shots <- shot_data %>%
@@ -217,7 +217,7 @@ A general trend is that, as the game approaches to 4th period, teams tend to mak
 After getting a general understanding of types and shots attempted for each team, now we want to focus on the Field Goal Percentage ($\frac{\text{ total shots made}}{\text{total shots attempted}}$).
 
 Here we will use diverging bar chart to compare the Field Goal % for 2-point and 3-point shots for each team, ordering by Field Goal % for 3-point shots:
-```{r}
+```{r team_fgp}
 FG_shot_type <- shot_data %>%
   select(team_name, shot_type,shot_attempted_flag,shot_made_flag) %>%
   group_by(team_name,shot_type) %>%
@@ -245,7 +245,7 @@ After analyzing performance of teams, we would like to get deeper to individual 
 
 Since in Part 5.1 we discovered that the league now generally prefer making either 2-point shots near hoop or 3-point shots with less mid-range shots, here we firstly explore the shooting behavior of Stephen Curry. As a ground-breaking player, Stephen Curry showed the world how explosive his scoring ability was and he is making a NBA record of three pointers made while this project is getting done. Analyzing his shooting behavior would be a great angle to start.
 
-```{r}
+```{r curry}
 library(RCurl)
 shot_steph <- shot_data %>%
   filter(player_name == "Stephen Curry")
@@ -311,7 +311,7 @@ On the other hand, we could still see that Stephen has his weakness, which is le
 
 We could always say that games of regular season do not really matter because being a championship depends on the performance in playoffs. So many top players choose to take as many rest as they can in regular season so that they could save more energy for the playoffs. Therefore, it would be great if we can find some differences of shooting behavior in regular season and playoffs. As a die-hard Lakers fan, I would choose to analyze LeBron James.
 
-```{r}
+```{r lebron_shot}
 shot_lebron <-  shot_data %>%
   filter(player_name == "LeBron James")
 
@@ -395,7 +395,7 @@ Comparing the performance in regular season and playoffs, we could see that alth
 
 Every basketball game has four periods and athletes would get exhausted when game is getting to the end, so it is important to arrange the rest and the rush hour properly. As we previously discovered in Part 5.1.3, the number of 2-point and 3-point shots are similar in the general league level. However, it is possible that it differs on individual player level. Therefore, let us take a look at the shooting behavior of LeBron James in different periods and hope to find some special patterns in it.
 
-```{r}
+```{r lebron_period}
 shot_data %>%
   filter(player_name == "LeBron James") %>%
   filter(period!="5" & period!="6") %>%
@@ -412,7 +412,7 @@ Based on the plot, LeBron James prefers attacking the tim to shooting long-dista
 
 Giannis Antetokounmpo, AKA Greek Freak, was experiencing his best seasons in past two years. MVP winner, All-star and last but not least, NBA championship. His athleticism is so phenomenol such that he could win all even without good shooting ability. While in the shock by shooting ability of Stephen Curry, let us take a look at Giannis Antetokounmpo, another side of basketball.
 
-```{r}
+```{r alluvial_giannis}
 shot_data %>%
   filter(player_name == 'Giannis Antetokounmpo') %>%
   mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) %>%
