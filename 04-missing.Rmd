@@ -29,7 +29,7 @@ as_tibble(sum(is.na(shot_data))) %>% pander()
 ```
 
 To further confirm our hypothesis that our dataset contains no missing data, we then draw a missing value plot:
-```{r missing value plot, fig.align = 'center', fig.height = 5, fig.width = 7}
+```{r, fig.align = 'center', fig.height = 5, fig.width = 7}
 # Input: df: dataframe to plot missing value; 
 #        percent: indicator whether to output percentage (FALSE: count, TRUE: percent)
 missing_plots <- function(df, percent = TRUE){
