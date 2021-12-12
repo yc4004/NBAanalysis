@@ -18,3 +18,6 @@ shooting-pattern-in-playoffs-of-lebron-james
 analysis-on-shooting-behavior-in-different-periods-of-lebron-james
 shooting-behavior-of-giannis-antetokounmpo
 the-scraping-procedure-for-detailed-shots-for-2020-21-regular-season-data-as-follows
+concluding-the-findings
+discussing-limitations
+looking-into-the-future

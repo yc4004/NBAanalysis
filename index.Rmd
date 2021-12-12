@@ -16,7 +16,7 @@ As one of the most popular athletic leagues, NBA attracts elite players and thes
 We propose the following questions to answer:
 
 1. (On League Level)
-We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
+We will give a overall glance at the dataset of last season to have a basic understanding on the league's shooting behaviors.
 
 2. (On Team Level)
 Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
