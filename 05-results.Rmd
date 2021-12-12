@@ -96,9 +96,6 @@ mosaic(event_type~shot_type + period, direction = c("v","v","h"), shot_mos,
 ```
 
 
->>>>>>> d98a13c70680d94d272e320a09e395cf5a3689fe
-
-
 ## Team Shooting Pattern Analysis
 
 Although in previous section, we realized that there is no striking difference in total number and FG% for 2-point and 3-point shots in each period for the entire league, we somewhat expect this shooting pattern to differ team by team. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
@@ -205,7 +202,7 @@ curry_heat <- ggplot(shot_steph, aes(x=loc_x, y=loc_y)) +
   scale_fill_viridis_c(option = "inferno",direction = -1) +
   xlim(-250, 250) +
   ylim(-50, 420)+
-  labs(title = "Stephen Curry Shot Count")+
+  labs(title = "Curry's Shot Count")+
   theme_void()+
   theme(legend.position="bottom")
 # League average FG% on different zones
@@ -239,7 +236,7 @@ curry_fg <- shot_steph %>%
                             high = "brown3", name = "FG% compared to league average" )+
   xlim(-250, 250) +
   ylim(-50, 420)+
-  labs(title = "Stephen Curry FG% Compared to League Average")+
+  labs(title = "Curry's FG% to League Average")+
   theme_void()+
   theme(legend.position="bottom")
 
@@ -308,7 +305,7 @@ lebron_fg <- shot_lebron %>%
                             high = "brown3", name = "FG% compared to league average" )+
   xlim(-250, 250) +
   ylim(-50, 420)+
-  labs(title = "Regular Season")+
+  labs(title = "Regular Season: LeBron's FG% to Average")+
   theme_void()+
   theme(legend.position="bottom")
 
@@ -326,7 +323,7 @@ lebron_fg_playoff <- shot_lebron_playoff %>%
                             high = "brown3", name = "FG% compared to league average" )+
   xlim(-250, 250) +
   ylim(-50, 420)+
-  labs(title = "Playoffs")+
+  labs(title = "Playoffs: LeBron's FG% to Average")+
   theme_void()+
   theme(legend.position="bottom")
 
@@ -347,7 +344,7 @@ shot_data %>%
   filter(period!="5" & period!="6") %>%
   mutate(period = factor(period, levels = c("1", "2", "3", "4","Right Side(R)"))) %>%
   ggplot(aes(x = as.numeric(as.character(shot_distance)), group = period, fill = period)) +
-  geom_density(alpha = 0.6) +
+  geom_density(alpha = 0.3) +
   theme(legend.position = c(0.9, 0.8)) +
   xlab("Shooting Distance")
 ```
