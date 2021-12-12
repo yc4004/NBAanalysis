@@ -34,13 +34,13 @@ shot_data_playoff = read_csv("shotchartdetail_playoffs.csv")
 
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
-1. On League Level
+1. (On League Level)
 We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
 
-2. On Team Level
+2. (On Team Level)
 Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
 
-3. On Player Level
+3. (On Player Level)
 We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.
 
 ## League Shooting Pattern Analysis

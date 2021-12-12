@@ -15,7 +15,6 @@ As one of the most popular athletic leagues, NBA attracts elite players and thes
 
 We propose the following questions to answer:
 
-<<<<<<< HEAD
 1. (On League Level)
 We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
 
@@ -24,13 +23,3 @@ Basketball is a team-played game and each team has its own style and culture. Fr
 
 3. (On Player Level)
 We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.
-=======
-1. On League Level
-We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
-
-2. On Team Level
-Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
-
-3. On Player Level
-We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.
->>>>>>> d98a13c70680d94d272e320a09e395cf5a3689fe
