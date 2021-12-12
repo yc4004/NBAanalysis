@@ -17,7 +17,7 @@ We will look at the missing pattern of detailed shots data for NBA 2020-21 Regul
 
 After getting the data out in the data sources portion, here we firstly have a look at the head of the NBA 2020-21 Regular Season data: 
 
-```{r data}
+```{r}
 shot_data = read_csv("shotchartdetail_regular.csv")
 shot_data_playoff = read_csv("shotchartdetail_playoffs.csv")
 head(shot_data,3)  %>% pander()
