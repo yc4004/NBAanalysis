@@ -61,9 +61,7 @@ density_ridges_zone <- shot_data %>%
 density_graph + density_ridges_zone + plot_layout(ncol=1)
 ```
 
-From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots.
-
-
+From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball
 
 
 ## Team Shooting Pattern Analysis
@@ -84,7 +82,7 @@ shot_data %>%
   ggplot(aes(x = value, y = reorder(team_name, value), color = name))+
   geom_point()+
   theme_linedraw()+ 
-  labs(title = "Cleveland Dot Plot for Attempted Shots Count for Each Team", x = "count", y = "Team Name")
+  labs(title = "2-point and 3-point Total Shots for Each Team", x = "count", y = "Team Name")
 ```
 
 From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn't vary a lot, ranging from around 6000 to 6500. However, for different teams, they have different preference for 2-point shots and 3-point shots. For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league. Therefore, we can conclude that teams vary significantly on their choice for making 2-point or 3-point shots.
@@ -152,7 +150,6 @@ From the plot, we can see that, generally, 3-point Field Goal is less than 2-poi
 
 It is difficult to see if the FG% for 2-point or 3-point corresponds to the team's preference. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, the FG% for 3-point shots are not highest for Utah Jazz and not lowest for San Antonio Spurs. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases.
 
-
 ## Individual Player Analysis
 
 ### Shooting behavior of Stephen Curry
@@ -163,12 +160,10 @@ As a ground-breaking player, Stephen Curry showed the world how explosive his sc
 library(RCurl)
 shot_steph <- shot_data %>%
   filter(player_name == "Stephen Curry")
-
 # import court background image
 courtImg.URL <- "https://thedatagame.files.wordpress.com/2016/03/nba_court.jpg"
 court <- rasterGrob(readJPEG(getURLContent(courtImg.URL)),
            width=unit(1,"npc"), height=unit(1,"npc"))
-
 curry_heat <- ggplot(shot_steph, aes(x=loc_x, y=loc_y)) + 
   annotation_custom(court, -250, 250, -50, 420) +
   geom_hex(bins = 40) +
@@ -178,8 +173,6 @@ curry_heat <- ggplot(shot_steph, aes(x=loc_x, y=loc_y)) +
   labs(title = "Stephen Curry Shot Count")+
   theme_void()+
   theme(legend.position="bottom")
-
-
 # League average FG% on different zones
 league_avg <- shot_data %>%
   select(shot_zone_basic, shot_attempted_flag,shot_made_flag) %>%
@@ -187,19 +180,15 @@ league_avg <- shot_data %>%
   summarize(shot_attempted = sum(shot_attempted_flag), shot_made = sum(shot_made_flag)) %>%
   mutate(FGp = shot_made/shot_attempted) %>%
   select('FGp')
-
 # Curry's FG% on different zones
 shot_steph_fgp <- shot_steph %>%
   select(shot_zone_basic, shot_attempted_flag,shot_made_flag) %>%
   group_by(shot_zone_basic) %>%
   summarize(shot_attempted = sum(shot_attempted_flag), shot_made = sum(shot_made_flag)) %>%
   mutate(FGp = shot_made/shot_attempted)
-
 # Compare Curry's FG% on different zones with League Average
 shot_steph_fgp$league_avg <- league_avg$FGp
 shot_steph_fgp$FGp_diff = (shot_steph_fgp$FGp - shot_steph_fgp$league_avg)*100
-
-
 curry_fg <- shot_steph %>%
   mutate(FG_comp = case_when(shot_zone_basic == "Above the Break 3" ~ shot_steph_fgp$FGp_diff[1],
                              shot_zone_basic == "Backcourt" ~ shot_steph_fgp$FGp_diff[2], 
@@ -218,13 +207,12 @@ curry_fg <- shot_steph %>%
   labs(title = "Stephen Curry FG% Compared to League Average")+
   theme_void()+
   theme(legend.position="bottom")
-
 curry_heat | curry_fg
 ```
 
 These two plots use a graph of basketball court to visualize the performance of Stephen Curry at each point on the court and it divides the court to multiple zones. The color in the left graph indicate the total number of shots made by Stephen Curry, the color in the right graph indicates the field goal percentage of Stephen Curry in that specific zone comparing to the average level of the league. It is red if the player shoots above the league average and blue if lower than league average.
 
-In the plot above, we could first notice that Stephen Curry tries most of his shots in the paint (a rectangle area nearest to the basket) and out of three-point line. This shooting behavior is a classical example of modern basketball: try less on mid-range shot. Another characteristic of his shooting is the range of his threes. We could even see multiple red hexagons even 7 feet further away from the three-point line, which makes it harder to guard him.
+In the plot above, we could first notice that Stephen Curry tries most of his shots in the paint (a rectangle area nearest to the basket) and out of three-point line. Again, this shooting behavior is a classical example of modern basketball: try less on mid-range shot. Another characteristic of his shooting is the range of his threes. We could even see multiple hexagons even 7 feet further away from the three-point line, which makes it harder to guard him.
 
 On the other hand, we could still see that Stephen has his weakness, which is left corner. His left-corner threes are deep blue so it would be a great strategy to limit him to shoot at that place. However, I think he is able to develope becasue he shoots very well on the other corner.
 
@@ -321,8 +309,8 @@ Every basketball game has four periods and athletes would get exhausted when gam
 ```{r}
 shot_lebron %>%
   filter(period!="5" & period!="6") %>%
-  ggplot(aes(x = as.numeric(as.character(shot_distance)), group = period, fill = factor(period))) +
-  geom_density(alpha = 0.3) +
+  ggplot(aes(x = as.numeric(as.character(shot_distance)), group = period, fill = factor(period)) )+
+  geom_density(alpha = 0.5) +
   theme(legend.position = c(0.9, 0.8)) +
   xlab("Shooting Distance")
 ```
@@ -351,5 +339,3 @@ shot_data %>%
 ```
 
 Based on this alluvial diagram, we could see that Giannis Antetokounmpo in this season spent most his attempts on 2 pointers and two thirds of his shots happened less than 8 feet away from the basket. As a right-handed player, it seems like that he does not have preference on which side to shoot. Moreover, after comparing the shot attempted at left side center and right side center, we could find that he approached the rim more often from the left although he is right-handed. This might be inspirational to his defenders that it is better to focus on his left hand. At last, in his fewer long-distance attempts, he did not very well because we could see more blue flow in the long-distance area. Therefore, he still have a lot of potential to stimulate and there are more accomplishment waiting for him if he could work on his weakness.
-
-
