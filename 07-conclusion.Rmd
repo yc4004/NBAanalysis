@@ -1,2 +1,15 @@
 # Conclusion
 
+## Concluding the Findings
+
+From our analysis in chapter 5, we conclude our findings from the shooting pattern for NBA Season 2020-21 as follows:
+
+1. On general league level, nowadays, the basketball tends to shoot less mid-range shots and try to maximize points per play by shooting more 3-point shots. 
+
+2. Teams vary significantly on their choice for making 2-point or 3-point shots. This preference also differs period by period, as the game approaches to 4th period, teams tend to make more 3-point shots compared to their performance in 1st period. In addition, there is no clear relation between the FG% and the team's preference for making 2-point or 3-point shots. 
+
+3. 
+
+## Discussing limitations
+
+## Looking into the future

@@ -27,20 +27,20 @@ library(ggalluvial)
 ```
 
 ```{r}
-shot_data = read_csv("shotchartdetail_regular.csv")
+shot_data = read_csv("shotchartdetail_regular_updated.csv")
 shot_data_playoff = read_csv("shotchartdetail_playoffs.csv")
 ```
 
 
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
-1. On League Level
+1. (On League Level)
 We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
 
-2. On Team Level
+2. (On Team Level)
 Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
 
-3. On Player Level
+3. (On Player Level)
 We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.
 
 ## League Shooting Pattern Analysis
@@ -62,17 +62,46 @@ density_ridges_zone <- shot_data %>%
 density_graph + density_ridges_zone + plot_layout(ncol=1)
 ```
 
-From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball.
-
+From the density histogram, we can see that the distribution of shot distance has two apparent peaks. Most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball.
 
 ```{r}
 boxplot(shot_distance~event_type,data=shot_data,horizontal=TRUE,main="Shot Distance for shots missed and made",col="lightblue",border="black",las=2,ylab='',cex.axis=0.5)
 ```
 Then we take a look at the relationship between shot distance and it is obvious that missed shots have higher distance which makes sense to us because it is always harder to make a long-distanced shot than a short-distanced one.
 
+<<<<<<< HEAD
+=======
+Then we can use boxplot to explore the distribution of shots made and missed on different zones based on minutes remaining in the period.
+
+```{r}
+shot_data %>%
+  ggplot(aes(x= shot_zone_area, y = minutes_remaining)) + 
+  geom_boxplot()+
+  facet_wrap(~event_type)+
+  coord_flip()+
+  labs(title = "Boxplots of Shot Zones agains Minutes Remaining", x = "Shot Zone", y = "Minutes Remaining")
+  
+```
+
+From this boxplot, surprisingly, except Back Court shots (which sometimes only happen when there is no time remaining), the distribution of missed shots are almost the same between different zones. However, the distribution of shots made in different zones varies.
+
+```{r}
+shot_mos <- shot_data %>%
+  select(c("event_type","shot_type","period")) %>%
+  group_by(event_type,shot_type,period) %>%
+  summarize(Freq=n(),.groups = 'drop')
+
+mosaic(event_type~shot_type + period, direction = c("v","v","h"), shot_mos,
+       highlighting_fill = c("cornflowerblue","grey80"),
+       labeling = labeling_border(rot_labels = c(0,0,0)),
+       main = "Mosaic Plot")
+```
+
+
+>>>>>>> a023f9c425cc98c9f1171b48d121ef8aa18274fb
 ## Team Shooting Pattern Analysis
 
-One striking difference between teams in shooting pattern is the team's preference for 2-point and 3-point shots. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
+Although in previous section, we realized that there is no striking difference in total number and FG% for 2-point and 3-point shots in each period for the entire league, we somewhat expect this shooting pattern to differ team by team. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
 
 ```{r}
 shot_data %>%
@@ -176,7 +205,7 @@ curry_heat <- ggplot(shot_steph, aes(x=loc_x, y=loc_y)) +
   scale_fill_viridis_c(option = "inferno",direction = -1) +
   xlim(-250, 250) +
   ylim(-50, 420)+
-  labs(title = "Stephen Curry Shot Count")+
+  labs(title = "Curry's Shot Count")+
   theme_void()+
   theme(legend.position="bottom")
 # League average FG% on different zones
@@ -210,7 +239,7 @@ curry_fg <- shot_steph %>%
                             high = "brown3", name = "FG% compared to league average" )+
   xlim(-250, 250) +
   ylim(-50, 420)+
-  labs(title = "Stephen Curry FG% Compared to League Average")+
+  labs(title = "Curry's FG% to League Average")+
   theme_void()+
   theme(legend.position="bottom")
 
@@ -279,7 +308,7 @@ lebron_fg <- shot_lebron %>%
                             high = "brown3", name = "FG% compared to league average" )+
   xlim(-250, 250) +
   ylim(-50, 420)+
-  labs(title = "Regular Season")+
+  labs(title = "Regular Season: LeBron's FG% to Average")+
   theme_void()+
   theme(legend.position="bottom")
 
@@ -297,7 +326,7 @@ lebron_fg_playoff <- shot_lebron_playoff %>%
                             high = "brown3", name = "FG% compared to league average" )+
   xlim(-250, 250) +
   ylim(-50, 420)+
-  labs(title = "Playoffs")+
+  labs(title = "Playoffs: LeBron's FG% to Average")+
   theme_void()+
   theme(legend.position="bottom")
 
@@ -318,7 +347,7 @@ shot_data %>%
   filter(period!="5" & period!="6") %>%
   mutate(period = factor(period, levels = c("1", "2", "3", "4","Right Side(R)"))) %>%
   ggplot(aes(x = as.numeric(as.character(shot_distance)), group = period, fill = period)) +
-  geom_density(alpha = 0.6) +
+  geom_density(alpha = 0.3) +
   theme(legend.position = c(0.9, 0.8)) +
   xlab("Shooting Distance")
 ```

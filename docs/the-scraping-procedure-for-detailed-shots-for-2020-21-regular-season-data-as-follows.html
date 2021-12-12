@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 The scraping procedure for detailed shots for 2020-21 Regular Season data as follows: | NBA Shooting Pattern Analysis</title>
+  <meta name="description" content="Chapter 3 The scraping procedure for detailed shots for 2020-21 Regular Season data as follows: | NBA Shooting Pattern Analysis" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 The scraping procedure for detailed shots for 2020-21 Regular Season data as follows: | NBA Shooting Pattern Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 The scraping procedure for detailed shots for 2020-21 Regular Season data as follows: | NBA Shooting Pattern Analysis" />
+  
+  
+  
+
+<meta name="author" content="Anne Lin, Yanbing Chen" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-sources.html"/>
+<link rel="next" href="data-transformation.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">NBA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="3" data-path="the-scraping-procedure-for-detailed-shots-for-2020-21-regular-season-data-as-follows.html"><a href="the-scraping-procedure-for-detailed-shots-for-2020-21-regular-season-data-as-follows.html"><i class="fa fa-check"></i><b>3</b> The scraping procedure for detailed shots for 2020-21 Regular Season data as follows:</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="the-scraping-procedure-for-detailed-shots-for-2020-21-regular-season-data-as-follows.html"><a href="the-scraping-procedure-for-detailed-shots-for-2020-21-regular-season-data-as-follows.html#detailed-shots-data"><i class="fa fa-check"></i><b>3.1</b> Detailed shots data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>4</b> Data transformation</a></li>
+<li class="chapter" data-level="5" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>5</b> Missing Values</a></li>
+<li class="chapter" data-level="6" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>6</b> Results</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="results.html"><a href="results.html#league-shooting-pattern-analysis"><i class="fa fa-check"></i><b>6.1</b> League Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="6.2" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>6.2</b> Team Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="6.3" data-path="results.html"><a href="results.html#individual-player-analysis"><i class="fa fa-check"></i><b>6.3</b> Individual Player Analysis</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="results.html"><a href="results.html#shooting-behavior-of-stephen-curry"><i class="fa fa-check"></i><b>6.3.1</b> Shooting behavior of Stephen Curry</a></li>
+<li class="chapter" data-level="6.3.2" data-path="results.html"><a href="results.html#shooting-pattern-in-playoffs-of-lebron-james"><i class="fa fa-check"></i><b>6.3.2</b> Shooting pattern in playoffs of LeBron James</a></li>
+<li class="chapter" data-level="6.3.3" data-path="results.html"><a href="results.html#analysis-on-shooting-behavior-in-different-periods-of-lebron-james"><i class="fa fa-check"></i><b>6.3.3</b> Analysis on shooting behavior in different periods of LeBron James</a></li>
+<li class="chapter" data-level="6.3.4" data-path="results.html"><a href="results.html#shooting-behavior-of-giannis-antetokounmpo"><i class="fa fa-check"></i><b>6.3.4</b> Shooting Behavior of Giannis Antetokounmpo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>7</b> Interactive component</a></li>
+<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NBA Shooting Pattern Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-scraping-procedure-for-detailed-shots-for-2020-21-regular-season-data-as-follows" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> The scraping procedure for detailed shots for 2020-21 Regular Season data as follows:</h1>
+<div id="detailed-shots-data" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Detailed shots data</h2>
+<p>The scraping procedure for detailed shots data for 2020-21 Regular Season is as follows:
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 765f6d4516cab00a76bf0617635b204def771f0e</p>
+<ul>
+<li><p>For the detailed shooting data, we firstly land in the <a href="https://www.nba.com/stats/" class="uri">https://www.nba.com/stats/</a> webpage. Scrolling down, we can see a “Shotchart Search” section. Inputting one player’s name, taking Stephen Curry during 2021-22 season as example, we can land in the page <a href="https://www.nba.com/stats/events/?flag=3&amp;CFID=33&amp;CFPARAMS=2021-22&amp;PlayerID=201939&amp;ContextMeasure=FGA&amp;Season=2021-22&amp;section=player&amp;sct=hex" class="uri">https://www.nba.com/stats/events/?flag=3&amp;CFID=33&amp;CFPARAMS=2021-22&amp;PlayerID=201939&amp;ContextMeasure=FGA&amp;Season=2021-22&amp;section=player&amp;sct=hex</a>.</p></li>
+<li><p>In this page, we can see data with each row being a field goal that gives us information like the type of shot, whether it was successful, shot distance, etc. However, the exact location of the shot doesn’t appear.</p></li>
+<li><p>To access the detailed shots location data, we can right click on the webpage and select “Inspect” and navigate to the “Network” tab. Then we can find the <code>shotchartdetail</code> data (if not appear, refresh page). Once find it, right clicking it and open it in a new tab, so we can get the URL.</p></li>
+<li><p>After getting the URL, we can use the url to import the data on the webpage into our R studio using <code>GET()</code> function.</p></li>
+</ul>
+<p>After building the function to grab shots data using <code>GET()</code> and doing simple data preprocessing, our final 2020-21 Regular Season Shots Data contains in total 24 columns and around 200,000 observations.</p>
+<p>The variables include player information (ID, name), team information (ID, name), game information (ID, date), and shot information (period, minutes and seconds remaining, whether shot successful, XY location, shot zone, shot area, etc.). All variables are in either string or integer format except date.</p>
+<p><strong>2020-21 Playoffs Shots Data</strong></p>
+<p>Using a similar way, we can get the detailed shots data for Playoffs.</p>
+<p>Our 2020-21 Playoffs Shots Data contain a total of 14771 observations, and the same variable as the 2020-21 Regular Season Shots Data.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-sources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yc4004/NBAanalysis/edit/main/02-data.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/yc4004/NBAanalysis/blob/main/02-data.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

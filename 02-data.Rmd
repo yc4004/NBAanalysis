@@ -4,16 +4,11 @@ Note that there is no downloading option for the data on NBA official website, s
 
 Since the data source is the NBA official website, and we scraped the data directly from it, it is considered reliable. 
 
-<<<<<<< HEAD
 In this project we want to focus on the data for the last regular season and playoffs, meaning the 2020-21 Regular Season and Playoffs. 
 
 **2020-21 Regular Season Shots Data**
 
-The scraping procedure for detailed shots for 2020-21 Regular Season data as follows:
-=======
-## Detailed shots data
 The scraping procedure for detailed shots data for 2020-21 Regular Season is as follows:
->>>>>>> 765f6d4516cab00a76bf0617635b204def771f0e
 
 * For the detailed shooting data, we firstly land in the https://www.nba.com/stats/ webpage. Scrolling down, we can see a "Shotchart Search" section. Inputting one player's name, taking Stephen Curry during 2021-22 season as example, we can land in the page https://www.nba.com/stats/events/?flag=3&CFID=33&CFPARAMS=2021-22&PlayerID=201939&ContextMeasure=FGA&Season=2021-22&section=player&sct=hex. 
 
@@ -126,7 +121,7 @@ shotchartdetail_playoffs = fetch_shots(0,"2020-21","Playoffs")
 write.csv(shotchartdetail_playoffs, "shotchartdetail_playoffs.csv",row.names = FALSE)
 ```
 
-Our 2020-21 Playoffs Shots Data contain a total of 14771 observations, and the same variable as the 2020-21 Regular Season Shots Data.
+Our 2020-21 Playoffs Shots Data contain a total of 14771 observations, and the same variables as the 2020-21 Regular Season Shots Data.
 
 
 

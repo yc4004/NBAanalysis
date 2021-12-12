@@ -7,12 +7,38 @@ library(readr)
 
 
 ```{r load_data}
-shot_data = read_csv("shotchartdetail.csv")
+shot_data = read_csv("shotchartdetail_regular.csv")
 ```
 
-For the detailed shots data, there are some categorical data which should be as factor with levels. For example, for `shot_zone_range` feature, the level of category should be "Less Than 8 ft.", "8-16 ft.", "16-24 ft.", "24+ ft.", and "Back Court Shot" based on the distance from the basket.
+Here we will perform some small modifications to our dataset to make it more easy to manipulate:
 
-```{r}
+1. The first column indicates the dataset type, which is ``Shot Chart Detail" for all rows, so we choose to remove it.
+```{r, echo =TRUE}
+shot_data <- shot_data %>%
+  select(-grid_type)
+```
+
+2. `period` column should be ordinal factors rather than numbers.
+```{r, echo =TRUE}
+shot_data <- shot_data %>%
+  mutate(period = factor(period, levels = c("1","2","3","4")))
+```
+
+3.`shot_zone_range` column should be ordinal factors with the levels ordered by the distance from the basket.
+```{r,echo =TRUE}
 shot_data <- shot_data %>%
   mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) 
 ```
+
+4. `game_date` column should be dates rather than numbers.
+```{r,echo =TRUE}
+shot_data$game_date <- as.Date(as.character(shot_data$game_date), format="%Y%m%d")
+```
+
+After all the above steps, we would get a data frame that’s ready for exploration. Since the data contains a great number of variables, we would determine which ones we would apply for step by step during our process of exploratory data analysis and visualization. So far, our idea is not to remove variables or missing values beforehand, in order to keep the completeness of the data frame.
+
+```{r}
+write.csv(shot_data, "shotchartdetail_regular_updated.csv",row.names = FALSE)
+```
+
+
