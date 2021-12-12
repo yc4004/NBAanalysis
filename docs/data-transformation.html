@@ -142,11 +142,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#league-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.1</b> League Shooting Pattern Analysis</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.2</b> Team Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#league-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.1</b> League Shooting Pattern Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#distribution-of-shot-distance"><i class="fa fa-check"></i><b>5.1.1</b> Distribution of Shot Distance</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#relationship-between-shot-result-and-shot-distance"><i class="fa fa-check"></i><b>5.1.2</b> Relationship between Shot Result and Shot Distance</a></li>
+<li class="chapter" data-level="5.1.3" data-path="results.html"><a href="results.html#shot-attempted-in-different-periods"><i class="fa fa-check"></i><b>5.1.3</b> Shot Attempted in Different Periods</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.2</b> Team Shooting Pattern Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#total-shots-for-each-team"><i class="fa fa-check"></i><b>5.2.1</b> Total Shots for Each Team</a></li>
+<li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#three-point-preference-by-period"><i class="fa fa-check"></i><b>5.2.2</b> Three-point Preference by Period</a></li>
+<li class="chapter" data-level="5.2.3" data-path="results.html"><a href="results.html#field-goal-percentage"><i class="fa fa-check"></i><b>5.2.3</b> Field Goal Percentage</a></li>
+</ul></li>
 <li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#individual-player-analysis"><i class="fa fa-check"></i><b>5.3</b> Individual Player Analysis</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#shooting-behavior-of-stephen-curry"><i class="fa fa-check"></i><b>5.3.1</b> Shooting behavior of Stephen Curry</a></li>
+<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#shooting-behavior-of-stephen-curry"><i class="fa fa-check"></i><b>5.3.1</b> Shooting Behavior of Stephen Curry</a></li>
 <li class="chapter" data-level="5.3.2" data-path="results.html"><a href="results.html#shooting-pattern-in-playoffs-of-lebron-james"><i class="fa fa-check"></i><b>5.3.2</b> Shooting pattern in playoffs of LeBron James</a></li>
 <li class="chapter" data-level="5.3.3" data-path="results.html"><a href="results.html#analysis-on-shooting-behavior-in-different-periods-of-lebron-james"><i class="fa fa-check"></i><b>5.3.3</b> Analysis on shooting behavior in different periods of LeBron James</a></li>
 <li class="chapter" data-level="5.3.4" data-path="results.html"><a href="results.html#shooting-behavior-of-giannis-antetokounmpo"><i class="fa fa-check"></i><b>5.3.4</b> Shooting Behavior of Giannis Antetokounmpo</a></li>
@@ -190,7 +200,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>period</code> column should be ordinal factors rather than numbers.</li>
 </ol>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data-transformation.html#cb2-1" aria-hidden="true" tabindex="-1"></a>shot_data <span class="ot">&lt;-</span> shot_data <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="data-transformation.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">period =</span> <span class="fu">factor</span>(period, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;3&quot;</span>,<span class="st">&quot;4&quot;</span>)))</span></code></pre></div>
+<span id="cb2-2"><a href="data-transformation.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">period =</span> <span class="fu">factor</span>(period, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;3&quot;</span>,<span class="st">&quot;4&quot;</span>,<span class="st">&quot;5&quot;</span>,<span class="st">&quot;6&quot;</span>)))</span></code></pre></div>
 <p>3.<code>shot_zone_range</code> column should be ordinal factors with the levels ordered by the distance from the basket.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-transformation.html#cb3-1" aria-hidden="true" tabindex="-1"></a>shot_data <span class="ot">&lt;-</span> shot_data <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="data-transformation.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shot_zone_range =</span> <span class="fu">factor</span>(shot_zone_range, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Less Than 8 ft.&quot;</span>, <span class="st">&quot;8-16 ft.&quot;</span>, <span class="st">&quot;16-24 ft.&quot;</span>,<span class="st">&quot;24+ ft.&quot;</span>,<span class="st">&quot;Back Court Shot&quot;</span>))) </span></code></pre></div>
