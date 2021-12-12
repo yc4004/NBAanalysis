@@ -9,6 +9,8 @@ library(RColorBrewer)
 library(ggalluvial)
 library(parcoords)
 library(pander)
+library(ggridges)
+library(patchwork)
 ```
 
 ```{r}
@@ -19,7 +21,7 @@ shot_data = read_csv("shotchartdetail.csv")
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
 1. (On team level)
-What is the difference between teams on their shooting preference? Does the preference change period by period? Does their field goal percentage related to the preference? 
+What are some differences between shooting behaviors preferences for each team? Does the preference change period by period? Does the preference corresponds to field goal percentage? 
 
 2. (On individual player level)
 Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?
@@ -166,9 +168,31 @@ plot_court = function(court_theme = court_themes$light, use_short_three = FALSE)
 plot_court(court_themes$light)
 ```
 
+## League Shooting Pattern Analysis
+
+Firstly we will look at the distribution of shots made by the entire league.
+```{r}
+density_graph <- shot_data %>%
+  ggplot(aes(x = shot_distance)) + 
+  geom_histogram(aes(y = ..density..), bins = 25)+
+  geom_density(aes(color = "density curve"))+ 
+  labs(title = "Distribution of Shot Distance", x = "Shot Distance (in)", y = "Density")
+
+
+density_ridges_zone <- shot_data %>% 
+  ggplot(aes(x = shot_distance, y=shot_zone_basic)) +
+  geom_density_ridges(alpha = .5) + 
+  labs(title = "Ridgeline Plots of Shot Distance in Different Zones", x = "Shot Distance (in)", y = "Zone")
+
+density_graph + density_ridges_zone + plot_layout(ncol=1)
+```
+
+From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots.
+
+
 ## Team Shooting Pattern Analysis
 
-Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
+One striking difference between teams in shooting pattern is the team's preference for 2-point and 3-point shots. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:
 
 ```{r}
 shot_data %>%
@@ -187,9 +211,7 @@ shot_data %>%
   labs(title = "2-point and 3-point Total Shots for Each Team", x = "count", y = "Team Name")
 ```
 
-From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn't vary a lot, ranging from around 6000 to 6500. However, for different teams, they have totally different preference for 2-point shots and 3-point shots, which may be resulted by types of players in that team. 
-
-For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league.
+From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn't vary a lot, ranging from around 6000 to 6500. However, for different teams, they have different preference for 2-point shots and 3-point shots. For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league. Therefore, we can conclude that teams vary significantly on their choice for making 2-point or 3-point shots.
 
 After generally seeing the preference of different teams, now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team. If the percentage increase, it means that the team prefer to make more 3-point shots.
 
@@ -210,7 +232,7 @@ period_shots <- shot_data %>%
   mutate(three_point_percentage_cut = as.character(three_point_percentage_cut)) %>% 
   select(-c(X2PT.Field.Goal,X3PT.Field.Goal,p)) %>%
   pivot_wider(names_from = period, values_from = three_point_percentage_cut) 
-
+  
 colnames(period_shots) <- c("Name", "Period1", "Period2", "Period3","Period4")
 
 period_shots%>%
@@ -252,8 +274,9 @@ HH::likert(team_name~., FG_shot_type, positive.order = TRUE,
 
 From the plot, we can see that, generally, 3-point Field Goal is less than 2-point Field Goal, which makes sense because 3-point shots are harder to score regarding to the distance.
 
-It is difficult to see if their is any relationship between the team's preference for 2-point or 3-point shots and the FG%. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, their FG% for 3-point shots are neither highest or lowest in the league. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases. 
+It is difficult to see if the FG% for 2-point or 3-point corresponds to the team's preference. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, the FG% for 3-point shots are not highest for Utah Jazz and not lowest for San Antonio Spurs. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases.
 
-## Individual Player Analysis
+
+## Individual Player Shooting Pattern Analysis
 Here we will specially explore 
 

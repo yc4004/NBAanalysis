@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>NBA Analysis</title>
-  <meta name="description" content="NBA Analysis" />
+  <title>NBA Shooting Pattern Analysis</title>
+  <meta name="description" content="NBA Shooting Pattern Analysis" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="NBA Analysis" />
+  <meta property="og:title" content="NBA Shooting Pattern Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="NBA Analysis" />
+  <meta name="twitter:title" content="NBA Shooting Pattern Analysis" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Anne Lin, Yanbing Chen" />
 
 
-<meta name="date" content="2021-12-10" />
+<meta name="date" content="2021-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,22 +74,13 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#detailed-shots-data"><i class="fa fa-check"></i><b>2.1</b> Detailed shots data</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#detailed-shots-data-1"><i class="fa fa-check"></i><b>3.1</b> Detailed shots data</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#detailed-shots-data-2"><i class="fa fa-check"></i><b>4.1</b> Detailed shots data</a></li>
-</ul></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#team-analysis"><i class="fa fa-check"></i><b>5.1</b> Team Analysis</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#individual-player-analysis"><i class="fa fa-check"></i><b>5.2</b> Individual Player Analysis</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.1</b> Team Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#individual-player-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.2</b> Individual Player Shooting Pattern Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -104,7 +95,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NBA Analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NBA Shooting Pattern Analysis</a>
           </h1>
         </div>
 
@@ -113,20 +104,22 @@
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">NBA Analysis</h1>
+<h1 class="title">NBA Shooting Pattern Analysis</h1>
 <p class="author"><em>Anne Lin, Yanbing Chen</em></p>
-<p class="date"><em>2021-12-10</em></p>
+<p class="date"><em>2021-12-11</em></p>
 </div>
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
 <p>Basketball is a team sport in which the goal is to try to outscore the amount in a fixed amount of time. Points are scored (either 2 or 3 points) by putting the ball throw a hoop on one end of the court. An attempt at putting the ball throw the hoop is known as a “shot”. If helpful, here are rules of basketball: <a href="https://en.wikipedia.org/wiki/Rules_of_basketball" class="uri">https://en.wikipedia.org/wiki/Rules_of_basketball</a>.</p>
 <p>The National Basketball Association (NBA) is the professional basketball league in the United States and provides a nice website with many statistics gathered on teams and players in the league: <a href="https://www.nba.com/stats/" class="uri">https://www.nba.com/stats/</a>.</p>
-<p>As one of the most popular athletic leagues, NBA attracts elite players and these palyers represent the highest level of basketball in the world. However, the shooting behavior varies from player to player so intrigued by a passion for basketball and the abundance of data resources on the NBA website, we decided to implore the pattern of shooting behavaiors in NBA for our final project and hope to take a small glance on what we are curious about through exploratory data analysis and visualization.</p>
+<p>As one of the most popular athletic leagues, NBA attracts elite players and these players represent the highest level of basketball in the world. However, the shooting behavior varies from player to player and even team to team. Therefore, intrigued by a passion for basketball and the abundance of data resources on the NBA website, we decided to implore the pattern of shooting behaviors in NBA for our final project and hope to take a small glance on what we are curious about through exploratory data analysis and visualization.</p>
 <p>We propose the following questions to answer:</p>
 <ol style="list-style-type: decimal">
-<li><p>(On general player and team level)
-What is the distribution of the total number of shots made for all players in the entire season? What about shot probability? Is there any difference between shots attempted and goaled for different teams in different zones? What about differences between the home team and visiting team?</p></li>
-<li><p>(On individual player level)
+<li><p>(On general data)
+What factors will influence whether the shots successfully scored?</p></li>
+<li><p>(On team level analysis)
+What is the difference between teams on their shooting preference? Does the preference change period by period? Does their field goal percentage related to the preference?</p></li>
+<li><p>(On individual player level analysis)
 Whether Russ Westbrook (Guard) has different shooting behavior (the shooting count and shot probability on different areas on the field) in different periods of the game? What about LeBron James (Forward)? Is LeBron’s shooting behavior similar to Russ ’s in different periods of the game?</p></li>
 </ol>
 
