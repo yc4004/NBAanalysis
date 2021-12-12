@@ -79,18 +79,33 @@
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#league-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.1</b> League Shooting Pattern Analysis</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.2</b> Team Shooting Pattern Analysis</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#league-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.1</b> League Shooting Pattern Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#distribution-of-shot-distance"><i class="fa fa-check"></i><b>5.1.1</b> Distribution of Shot Distance</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#relationship-between-shot-result-and-shot-distance"><i class="fa fa-check"></i><b>5.1.2</b> Relationship between Shot Result and Shot Distance</a></li>
+<li class="chapter" data-level="5.1.3" data-path="results.html"><a href="results.html#shot-attempted-in-different-periods"><i class="fa fa-check"></i><b>5.1.3</b> Shot Attempted in Different Periods</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#team-shooting-pattern-analysis"><i class="fa fa-check"></i><b>5.2</b> Team Shooting Pattern Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#total-shots-for-each-team"><i class="fa fa-check"></i><b>5.2.1</b> Total Shots for Each Team</a></li>
+<li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#three-point-preference-by-period"><i class="fa fa-check"></i><b>5.2.2</b> Three-point Preference by Period</a></li>
+<li class="chapter" data-level="5.2.3" data-path="results.html"><a href="results.html#field-goal-percentage"><i class="fa fa-check"></i><b>5.2.3</b> Field Goal Percentage</a></li>
+</ul></li>
 <li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#individual-player-analysis"><i class="fa fa-check"></i><b>5.3</b> Individual Player Analysis</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#shooting-behavior-of-stephen-curry"><i class="fa fa-check"></i><b>5.3.1</b> Shooting behavior of Stephen Curry</a></li>
+<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#shooting-behavior-of-stephen-curry"><i class="fa fa-check"></i><b>5.3.1</b> Shooting Behavior of Stephen Curry</a></li>
 <li class="chapter" data-level="5.3.2" data-path="results.html"><a href="results.html#shooting-pattern-in-playoffs-of-lebron-james"><i class="fa fa-check"></i><b>5.3.2</b> Shooting pattern in playoffs of LeBron James</a></li>
 <li class="chapter" data-level="5.3.3" data-path="results.html"><a href="results.html#analysis-on-shooting-behavior-in-different-periods-of-lebron-james"><i class="fa fa-check"></i><b>5.3.3</b> Analysis on shooting behavior in different periods of LeBron James</a></li>
 <li class="chapter" data-level="5.3.4" data-path="results.html"><a href="results.html#shooting-behavior-of-giannis-antetokounmpo"><i class="fa fa-check"></i><b>5.3.4</b> Shooting Behavior of Giannis Antetokounmpo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#concluding-the-findings"><i class="fa fa-check"></i><b>7.1</b> Concluding the Findings</a></li>
+<li class="chapter" data-level="7.2" data-path="conclusion.html"><a href="conclusion.html#discussing-limitations"><i class="fa fa-check"></i><b>7.2</b> Discussing limitations</a></li>
+<li class="chapter" data-level="7.3" data-path="conclusion.html"><a href="conclusion.html#looking-into-the-future"><i class="fa fa-check"></i><b>7.3</b> Looking into the future</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -112,49 +127,94 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
-<p>In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:</p>
+<p>In this chapter, we will proceed to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:</p>
 <ol style="list-style-type: decimal">
 <li><p>(On League Level)
-We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.</p></li>
+We will give a overall glance at the dataset for the entire league of last season to have a basic understanding on the shooting behaviors.</p></li>
 <li><p>(On Team Level)
 Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.</p></li>
 <li><p>(On Player Level)
-We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.</p></li>
+Sometimes a single player could make huge impact on games. We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in different periods of game.</p></li>
 </ol>
 <div id="league-shooting-pattern-analysis" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> League Shooting Pattern Analysis</h2>
-<p>Firstly we will look at the distribution of distance of shots by the entire league.
-<img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>From the density histogram, we can see that the distribution of shot distance has two apparent peaks. Most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" />
-Then we take a look at the relationship between shot distance and it is obvious that missed shots have higher distance which makes sense to us because it is always harder to make a long-distanced shot than a short-distanced one.</p>
-<p>Then we can use boxplot to explore the distribution of shots made and missed on different zones based on minutes remaining in the period.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>From this boxplot, surprisingly, except Back Court shots (which sometimes only happen when there is no time remaining), the distribution of missed shots are almost the same between different zones. However, the distribution of shots made in different zones varies.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div id="distribution-of-shot-distance" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Distribution of Shot Distance</h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>From the first density histogram, we can see that the distribution of shot distance has two apparent peaks. Most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are mainly in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range - either shoot close to basket or making more 3-point shots - to try to maximize points per play.</p>
+<p>Taking a look at the last boxplot with the distribution of shot distance according to shot result, it is obvious that missed shots have more outliers with larger distance. This situation makes sense because it is harder to make a long-distanced shot comparing to a short-distanced one.</p>
+</div>
+<div id="relationship-between-shot-result-and-shot-distance" class="section level3" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Relationship between Shot Result and Shot Distance</h3>
+<p>Since in previous part we realized that missed shots has more outliers with larger distance, we want to explore whether the shot distance will affect whether the shot is successfully made.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>From the mosaic plot, we can see that as the shot distance increase, less shots are successfully made and more shots are missed.To further confirm our hypothesis that shot distance will affect the shot result, we perform chi-square tests to test for associations between the shot distance and shot result.</p>
+<p>Null Hypothesis: <code>Shot Distance</code> and <code>Shot Result</code> are independent.</p>
+<p>Alternative Hypothesis: <code>Shot Distance</code> and <code>Shot Result</code> are NOT independent.</p>
+<table style="width:44%;">
+<caption>Pearson’s Chi-squared test: <code>shot_dis_mos_mtx</code></caption>
+<colgroup>
+<col width="23%" />
+<col width="6%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Test statistic</th>
+<th align="center">df</th>
+<th align="center">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">7675</td>
+<td align="center">4</td>
+<td align="center">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<p>Since the p-value is less than 0.01, meaning the probability of us accepting the null hypothesis is less than 1%, so we can reject null hypothesis that <code>Shot Distance</code> and <code>Shot Result</code> are independent. Therefore, it means that there is relation between <code>Shot Distance</code> and <code>Shot Result</code>.</p>
+</div>
+<div id="shot-attempted-in-different-periods" class="section level3" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> Shot Attempted in Different Periods</h3>
+<p>Every NBA game has four regular periods to decide which team is winner (there would over time periods if score is tied), we want to see generally how well all players shoot in different periods.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>As shown in the second bar plots above, for both 2-point and 3-point shots, the field goal percentage stays similar for each period because the colored area of <code>Made Shot</code> and <code>Missed Shot</code> stays similar for all period. For 2-point shots the shot result approximately account for 50% of area respectively, but for the 3-point field goals, <code>Made Shot</code> is less than it for 2-point shots, which make sense because making 3-point shots is more difficult than making 2-point shots as we discussed in previous section that distance affects the shooting result. Also, we can see that for 2-point shots, the total shots decreases as period increases. This is a normal phenomenon to us because players would be too exhausted to shoot near hoop when the game approaching to the end. Generally spealing, this overall situation for the entire league performance is as expected.</p>
+</div>
 </div>
 <div id="team-shooting-pattern-analysis" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Team Shooting Pattern Analysis</h2>
+<p>At next step, we would go deeper onto the shooting performance on team level.</p>
+<div id="total-shots-for-each-team" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Total Shots for Each Team</h3>
 <p>Although in previous section, we realized that there is no striking difference in total number and FG% for 2-point and 3-point shots in each period for the entire league, we somewhat expect this shooting pattern to differ team by team. Firstly, to get a general understanding of how many 2-point and 3-point shots each team attempted for season 2020-21, we create a Cleveland Dot Plot as follows:</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>From the Cleveland Dot Plot, we can see that the total shots made by each team for the entire season doesn’t vary a lot, ranging from around 6000 to 6500. However, for different teams, they have different preference for 2-point shots and 3-point shots. For example, Utah Jazz has almost same counts for 2-point shots and 3-point shots with the most 3-point shots in the league. On the contrary, San Antonio Spurs has least count of 3-point shots and most count of 2-point shots in the league. Therefore, we can conclude that teams vary significantly on their choice for making 2-point or 3-point shots.</p>
-<p>After generally seeing the preference of different teams, now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team. If the percentage increase, it means that the team prefer to make more 3-point shots.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="three-point-preference-by-period" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Three-point Preference by Period</h3>
+<p>After generally seeing the preference of different teams, now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team (<span class="math inline">\(\text{percentage} = \frac{\text{3-point shots attempted}}{\text{all shots attempted}}\)</span>). If the percentage increase, it means that the team prefer to make more 3-point shots.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p><em>(Here Each color represents one team. The percentage represent the percentage of 3-point shots of total number of shots attempted each period. The first axis means 1st period, and so on.)</em></p>
 <p>From the graph we can see that, indeed, most of the teams will have different preference for 2-point and 3-point shots regarding to different periods of a game. For example, Brooklyn Nets experienced largest change in the percentage of 3-point shots among other teams: at 1st period, it has percentage between 40% and 35%, and during the 2nd period, the percentage decreased to 35% - 40%. Then during 3rd period, the percentage increased to 40%-45% and finally reached 45%-50% at the 4th period.</p>
 <p>A general trend is that, as the game approaches to 4th period, teams tend to make more 3-point shots compared to their performance in 1st period.</p>
+</div>
+<div id="field-goal-percentage" class="section level3" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Field Goal Percentage</h3>
 <p>After getting a general understanding of types and shots attempted for each team, now we want to focus on the Field Goal Percentage (<span class="math inline">\(\frac{\text{ total shots made}}{\text{total shots attempted}}\)</span>).</p>
 <p>Here we will use diverging bar chart to compare the Field Goal % for 2-point and 3-point shots for each team, ordering by Field Goal % for 3-point shots:
-<img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>From the plot, we can see that, generally, 3-point Field Goal is less than 2-point Field Goal, which makes sense because 3-point shots are harder to score regarding to the distance.</p>
-<p>It is difficult to see if the FG% for 2-point or 3-point corresponds to the team’s preference. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, the FG% for 3-point shots are not highest for Utah Jazz and not lowest for San Antonio Spurs. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases.</p>
+<p>It is difficult to see if the FG% for 2-point or 3-point corresponds to the team’s preference. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, the FG% for 3-point shots are not highest for Utah Jazz and not lowest for San Antonio Spurs. This situation may be affected by the fact that, since the team prefer 3-point shots, they make more, and they miss more, so the FG% will not be the highest. Therefore, teams with more three attempts can try to put more effort into the three-point practive so that the scores could be maximized.</p>
+</div>
 </div>
 <div id="individual-player-analysis" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Individual Player Analysis</h2>
+<p>After analyzing performance of teams, we would like to get deeper to individual palyer. Since there are over 300 players in the league, we are not able to analyze each player one by one so it is necessary to focus on the most brilliant stars.</p>
 <div id="shooting-behavior-of-stephen-curry" class="section level3" number="5.3.1">
-<h3><span class="header-section-number">5.3.1</span> Shooting behavior of Stephen Curry</h3>
-<p>As a ground-breaking player, Stephen Curry showed the world how explosive his scoring ability was and he is making a NBA record of three pointers made while this project is getting done. Analyzing his shooting behavior would be a great angle to start.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<h3><span class="header-section-number">5.3.1</span> Shooting Behavior of Stephen Curry</h3>
+<p>Since in Part 5.1 we discovered that the league now generally prefer making either 2-point shots near hoop or 3-point shots with less mid-range shots, here we firstly explore the shooting behavior of Stephen Curry. As a ground-breaking player, Stephen Curry showed the world how explosive his scoring ability was and he is making a NBA record of three pointers made while this project is getting done. Analyzing his shooting behavior would be a great angle to start.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>These two plots use a graph of basketball court to visualize the performance of Stephen Curry at each point on the court and it divides the court to multiple zones. The color in the left graph indicate the total number of shots made by Stephen Curry, the color in the right graph indicates the field goal percentage of Stephen Curry in that specific zone comparing to the average level of the league. It is red if the player shoots above the league average and blue if lower than league average.</p>
 <p>In the plot above, we could first notice that Stephen Curry tries most of his shots in the paint (a rectangle area nearest to the basket) and out of three-point line. Again, this shooting behavior is a classical example of modern basketball: try less on mid-range shot. Another characteristic of his shooting is the range of his threes. We could even see multiple hexagons even 7 feet further away from the three-point line, which makes it harder to guard him.</p>
 <p>On the other hand, we could still see that Stephen has his weakness, which is left corner. His left-corner threes are deep blue so it would be a great strategy to limit him to shoot at that place. However, I think he is able to develope becasue he shoots very well on the other corner.</p>
@@ -162,20 +222,20 @@ Then we take a look at the relationship between shot distance and it is obvious 
 <div id="shooting-pattern-in-playoffs-of-lebron-james" class="section level3" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Shooting pattern in playoffs of LeBron James</h3>
 <p>We could always say that games of regular season do not really matter because being a championship depends on the performance in playoffs. So many top players choose to take as many rest as they can in regular season so that they could save more energy for the playoffs. Therefore, it would be great if we can find some differences of shooting behavior in regular season and playoffs. As a die-hard Lakers fan, I would choose to analyze LeBron James.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>By looking at the regular season shot chart on the left, it is obvious that LeBron did fantastic in the paint, which shows that his advantage near the basketball still exists. In contrary, he also tried a lot mid range shots and threes but the results was not ideal, except that his shooting percentage on the left corner is extremely high, where by chance Stephen Curry was not good at.</p>
 <p>Comparing the performance in regular season and playoffs, we could see that although LeBron James still did better than average in the semi-circle area under the basket, his shooting significantly declined in that area. It might be the reason why Lakers in this season did not make it to the finals. Moreover, he still behaved well on the left corner in playoffs than the other one so the defending strategy against LeBron should be opposite to Stephen Curry.</p>
 </div>
 <div id="analysis-on-shooting-behavior-in-different-periods-of-lebron-james" class="section level3" number="5.3.3">
 <h3><span class="header-section-number">5.3.3</span> Analysis on shooting behavior in different periods of LeBron James</h3>
-<p>Every basketball game has four periods and athletes would get exhausted when game is getting to the end, so it is important to arrange the rest and the rush hour properly. Therefore, let us take a look at the shooting behavior of LeBron James in different periods and hope to find some special patterns in it.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Every basketball game has four periods and athletes would get exhausted when game is getting to the end, so it is important to arrange the rest and the rush hour properly. As we previously discovered in Part 5.1.3, the number of 2-point and 3-point shots are similar in the general league level. However, it is possible that it differs on individual player level. Therefore, let us take a look at the shooting behavior of LeBron James in different periods and hope to find some special patterns in it.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Based on the plot, LeBron James prefers attacking the tim to shooting long-distance in the second quarter and among four periods it is last one that he attempted most threes. Therefore, there is one more defending policy against LeBron should be focusing more on his layups in the first half and his threes in the second half.</p>
 </div>
 <div id="shooting-behavior-of-giannis-antetokounmpo" class="section level3" number="5.3.4">
 <h3><span class="header-section-number">5.3.4</span> Shooting Behavior of Giannis Antetokounmpo</h3>
 <p>Giannis Antetokounmpo, AKA Greek Freak, was experiencing his best seasons in past two years. MVP winner, All-star and last but not least, NBA championship. His athleticism is so phenomenol such that he could win all even without good shooting ability. While in the shock by shooting ability of Stephen Curry, let us take a look at Giannis Antetokounmpo, another side of basketball.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Based on this alluvial diagram, we could see that Giannis Antetokounmpo in this season spent most his attempts on 2 pointers and two thirds of his shots happened less than 8 feet away from the basket. As a right-handed player, it seems like that he does not have preference on which side to shoot. Moreover, after comparing the shot attempted at left side center and right side center, we could find that he approached the rim more often from the left although he is right-handed. This might be inspirational to his defenders that it is better to focus on his left hand. At last, in his fewer long-distance attempts, he did not very well because we could see more blue flow in the long-distance area. Therefore, he still have a lot of potential to stimulate and there are more accomplishment waiting for him if he could work on his weakness.</p>
 
 </div>

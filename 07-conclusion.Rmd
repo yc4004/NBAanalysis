@@ -4,9 +4,9 @@
 
 From our analysis in chapter 5, we conclude our findings from the shooting pattern for NBA Season 2020-21 as follows:
 
-1. On general league level, nowadays, the basketball tends to shoot less mid-range shots and try to maximize points per play by shooting more 3-point shots. 
+1. On general league level, nowadays, the basketball tends to shoot less mid-range shots - either shoot close to basket or making more 3-point shots - to try to maximize points per play. Our hypothesis shows that the field goal percentage (whether the goal made succesully or not) is related to the shooting distance. 
 
-2. Teams vary significantly on their choice for making 2-point or 3-point shots. This preference also differs period by period, as the game approaches to 4th period, teams tend to make more 3-point shots compared to their performance in 1st period. In addition, there is no clear relation between the FG% and the team's preference for making 2-point or 3-point shots. 
+2. Teams vary significantly on their choice for making 2-point or 3-point shots. This preference also differs period by period. As the game approaches to 4th period, teams tend to make more 3-point shots compared to their performance in 1st period. In addition, there is no clear relation between the FG% and the team's preference for making 2-point or 3-point shots. 
 
 3. 
 

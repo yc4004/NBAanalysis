@@ -21,3 +21,10 @@ the-scraping-procedure-for-detailed-shots-for-2020-21-regular-season-data-as-fol
 concluding-the-findings
 discussing-limitations
 looking-into-the-future
+distribution-of-shot-distance
+distribution-of-minitues-remaining-in-different-shot-zone
+shot-attempted-in-different-periods
+total-shots-for-each-team
+three-point-preference-by-period
+field-goal-percentage
+relationship-between-shot-result-and-shot-distance

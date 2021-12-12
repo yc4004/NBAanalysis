@@ -32,20 +32,20 @@ shot_data_playoff = read_csv("shotchartdetail_playoffs.csv")
 ```
 
 
-In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
+In this chapter, we will proceed to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
 1. (On League Level)
-We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
+We will give a overall glance at the dataset for the entire league of last season to have a basic understanding on the shooting behaviors.
 
 2. (On Team Level)
 Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
 
 3. (On Player Level)
-Sometimes a single player could make huge impact on basketball. We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.
+Sometimes a single player could make huge impact on games. We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in different periods of game.
 
 ## League Shooting Pattern Analysis
 
-### Distribution of Distance of Shots
+### Distribution of Shot Distance
 
 ```{r}
 density_graph <- shot_data %>%
@@ -60,46 +60,87 @@ density_ridges_zone <- shot_data %>%
   geom_density_ridges(alpha = .5) + 
   labs(title = "Ridgeline Plots of Shot Distance in Different Zones", x = "Shot Distance (in)", y = "Zone")
 
-density_graph + density_ridges_zone + plot_layout(ncol=1)
-```
-
-From the density histogram, we can see that the distribution of shot distance has two apparent peaks. Most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball.
-
-### Shot Distance of Missed Shots and Made Shots
-
-```{r}
-boxplot(shot_distance~event_type,data=shot_data,horizontal=TRUE,main="Shot Distance for shots missed and made",col="lightblue",border="black",las=2,ylab='',cex.axis=0.5)
-```
-Then we take a look at the relationship between shot distance and it is obvious that missed shots have higher distance which makes sense to us because it is always harder to make a long-distanced shot than a short-distanced one.
-
-```{r}
-shot_data %>%
-  ggplot(aes(x= shot_zone_area, y = minutes_remaining)) + 
+shot_dist_bar <- shot_data %>%
+  ggplot(aes(x= shot_distance, y = event_type)) + 
   geom_boxplot()+
-  facet_wrap(~event_type)+
-  coord_flip()+
-  labs(title = "Boxplots of Shot Zones agains Minutes Remaining", x = "Shot Zone", y = "Minutes Remaining")
-  
+  labs(title = "Boxplots of Shot Result vs. Shot Distance", x = "Shot Distance (in)", y = "Shot Result")
+
+density_graph + density_ridges_zone +shot_dist_bar+plot_layout(ncol=1)
 ```
-In order to be more specific, we dig into different zones based on minutes remaining in the period. From the boxplot above, surprisingly, except Back Court shots (which sometimes only happen when there is no time remaining), the distribution of missed shots are almost the same between different zones. However, the distribution of shots made in different zones varies and it is more likely that players made shots in left side center when time remaining is sufficient.
+
+From the first density histogram, we can see that the distribution of shot distance has two apparent peaks. Most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are mainly in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range - either shoot close to basket or making more 3-point shots - to try to maximize points per play.
+
+Taking a look at the last boxplot with the distribution of shot distance according to shot result, it is obvious that missed shots have more outliers with larger distance. This situation makes sense because it is harder to make a long-distanced shot comparing to a short-distanced one.
+
+### Relationship between Shot Result and Shot Distance
+
+Since in previous part we realized that missed shots has more outliers with larger distance, we want to explore whether the shot distance will affect whether the shot is successfully made.
+
+```{r}
+shot_dis_mos <- shot_data %>%
+  select(c("event_type","shot_zone_range")) %>%
+  mutate(shot_zone_range = factor(shot_zone_range, levels = c("Less Than 8 ft.", "8-16 ft.", "16-24 ft.","24+ ft.","Back Court Shot"))) %>%
+  group_by(event_type,shot_zone_range) %>%
+  summarize(Freq=n(),.groups = 'drop')
+
+mosaic(event_type~ shot_zone_range, direction = c("v","h"), shot_dis_mos,
+       highlighting_fill = c("cornflowerblue","grey80"),
+       labeling = labeling_border(tl_labels = c(FALSE, TRUE), rot_labels = c(30,0)),
+       main = "Mosaic Plot on Shot Distance and Shot Result")
+```
+
+From the mosaic plot, we can see that as the shot distance increase, less shots are successfully made and more shots are missed.To further confirm our hypothesis that shot distance will affect the shot result, we perform chi-square tests to test for associations between the shot distance and shot result.
+
+Null Hypothesis: `Shot Distance` and `Shot Result` are independent.
+
+Alternative Hypothesis: `Shot Distance` and `Shot Result` are NOT independent.
+
+```{r}
+shot_dis_mos_wide <- shot_dis_mos %>%
+  pivot_wider(names_from = event_type, values_from = Freq, values_fill = 0)
+
+shot_dis_mos_mtx <- as.matrix(shot_dis_mos_wide[2:3])
+
+rownames(shot_dis_mos_mtx) = shot_dis_mos_wide$shot_zone_range
+
+pander(chisq.test(shot_dis_mos_mtx, correct = FALSE))
+```
+
+Since the p-value is less than 0.01, meaning the probability of us accepting the null hypothesis is less than 1%, so we can reject null hypothesis that `Shot Distance` and `Shot Result` are independent. Therefore, it means that there is relation between `Shot Distance` and `Shot Result`.
 
 ### Shot Attempted in Different Periods
 
-Every NBA game has four regular periods to decide which team is winner (there would over time periods if score is tied), we want to see that how well players shoot in different periods.
+Every NBA game has four regular periods to decide which team is winner (there would over time periods if score is tied), we want to see generally how well all players shoot in different periods.
 
 ```{r}
-shot_mos <- shot_data %>%
+shot_cnt <- shot_data %>%
   select(c("event_type","shot_type","period")) %>%
+  filter(period <= 4) %>%
+  mutate(period = factor(period)) %>%
   group_by(event_type,shot_type,period) %>%
-  summarize(Freq=n(),.groups = 'drop')
+  summarize(count=n(),.groups = 'drop') %>%
+  ggplot(aes(x = period, y = count, fill = event_type))+
+  geom_col() +
+  facet_wrap(~shot_type)+
+  labs(title = "Stacked Bar Plot of Shot Count in Different Period")
 
-mosaic(event_type~shot_type + period, direction = c("v","v","h"), shot_mos,
-       highlighting_fill = c("cornflowerblue","grey80"),
-       labeling = labeling_border(rot_labels = c(0,0,0)),
-       main = "Mosaic Plot")
+shot_freq <- shot_data %>%
+  select(c("event_type","shot_type","period")) %>%
+  filter(period <= 4) %>%
+  mutate(period = factor(period)) %>%
+  group_by(period, shot_type,event_type) %>%
+  summarize(count=n(),.groups = 'drop') %>%
+  group_by(period,shot_type) %>%
+  mutate(freq = count/sum(count)) %>%
+  ungroup() %>%
+  ggplot(aes(x = period, y = freq, fill = event_type))+
+  geom_col() +
+  facet_wrap(~shot_type)+
+  labs(title = "Stacked Bar Plot of Shot Frequency in Different Period")
+shot_cnt/shot_freq
 ```
 
-As shown in mosaic plot above, for the  2-point field goals, players perform very similar in different periods. For the 3-point field goals, shots made verall declined significantly from the 2-pointers and the field goal percentage varies slightly from period to period. We could see that in first period the percentage of shots made is highest and last one has lowest. This is a normal phenomenon to us because players would be too exhausted to shoot well near the end of the game. However, one interesting thing is that players seem to perform better in third period than second period. Perhaps it is because players have longer break for halftime so that they could recover and shoot better in third quarter.
+As shown in the second bar plots above, for both 2-point and 3-point shots, the field goal percentage stays similar for each period because the colored area of `Made Shot` and `Missed Shot` stays similar for all period. For 2-point shots the shot result approximately account for 50% of area respectively, but for the 3-point field goals, `Made Shot` is less than it for 2-point shots, which make sense because making 3-point shots is more difficult than making 2-point shots as we discussed in previous section that distance affects the shooting result. Also, we can see that for 2-point shots, the total shots decreases as period increases. This is a normal phenomenon to us because players would be too exhausted to shoot near hoop when the game approaching to the end. Generally spealing, this overall situation for the entire league performance is as expected.
 
 ## Team Shooting Pattern Analysis
 
@@ -130,7 +171,7 @@ From the Cleveland Dot Plot, we can see that the total shots made by each team f
 
 ### Three-point Preference by Period
 
-After generally seeing the preference of different teams, now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team. If the percentage increase, it means that the team prefer to make more 3-point shots.
+After generally seeing the preference of different teams, now we can explore the movement of preference for 2-point shots and 3-point shots period by period. To see the preference change, here we calculate the percentage of 3-point shots among all shots made in each period for each team ($\text{percentage} = \frac{\text{3-point shots attempted}}{\text{all shots attempted}}$). If the percentage increase, it means that the team prefer to make more 3-point shots.
 
 ```{r}
 getPalette = colorRampPalette(brewer.pal(9, "Set1"))
@@ -158,7 +199,7 @@ period_shots%>%
   geom_stratum(width = 1/12, fill = "grey80", color = "dark grey")+
   geom_label(stat="stratum",
              aes(label = after_stat(stratum)))+
-  ggtitle("Alluvial Diagram of Percentage of 3-points Change")+
+  ggtitle("Alluvial Diagram of 3-point Percentage Change")+
   theme_void()+
   scale_fill_manual(values = getPalette(30))+
   theme(legend.position="bottom",legend.title = element_text(size=4), legend.text = element_text(size=4))
@@ -193,16 +234,16 @@ HH::likert(team_name~., FG_shot_type, positive.order = TRUE,
 
 From the plot, we can see that, generally, 3-point Field Goal is less than 2-point Field Goal, which makes sense because 3-point shots are harder to score regarding to the distance.
 
-It is difficult to see if the FG% for 2-point or 3-point corresponds to the team's preference. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, the FG% for 3-point shots are not highest for Utah Jazz and not lowest for San Antonio Spurs. This situation may be affected by the fact that, since the team prefer 3-point shots, so they make more, and they miss more, so the FG% decreases. Therefore, teams with more three attempts should put more effort into the three-point practive so that the scores could be maximized.
+It is difficult to see if the FG% for 2-point or 3-point corresponds to the team's preference. Based on our previous conclusion, Utah Jazz has the most number of 3-point shots attempted, and San Antonio Spurs were concluded as the team least preferring 3-point shots. However, the FG% for 3-point shots are not highest for Utah Jazz and not lowest for San Antonio Spurs. This situation may be affected by the fact that, since the team prefer 3-point shots, they make more, and they miss more, so the FG% will not be the highest. Therefore, teams with more three attempts can try to put more effort into the three-point practive so that the scores could be maximized.
 
 
 ## Individual Player Analysis
 
 After analyzing performance of teams, we would like to get deeper to individual palyer. Since there are over 300 players in the league, we are not able to analyze each player one by one so it is necessary to focus on the most brilliant stars.
 
-### Shooting behavior of Stephen Curry
+### Shooting Behavior of Stephen Curry
 
-As a ground-breaking player, Stephen Curry showed the world how explosive his scoring ability was and he is making a NBA record of three pointers made while this project is getting done. Analyzing his shooting behavior would be a great angle to start.
+Since in Part 5.1 we discovered that the league now generally prefer making either 2-point shots near hoop or 3-point shots with less mid-range shots, here we firstly explore the shooting behavior of Stephen Curry. As a ground-breaking player, Stephen Curry showed the world how explosive his scoring ability was and he is making a NBA record of three pointers made while this project is getting done. Analyzing his shooting behavior would be a great angle to start.
 
 ```{r}
 library(RCurl)
@@ -352,7 +393,7 @@ Comparing the performance in regular season and playoffs, we could see that alth
 
 ### Analysis on shooting behavior in different periods of LeBron James 
 
-Every basketball game has four periods and athletes would get exhausted when game is getting to the end, so it is important to arrange the rest and the rush hour properly. Therefore, let us take a look at the shooting behavior of LeBron James in different periods and hope to find some special patterns in it.
+Every basketball game has four periods and athletes would get exhausted when game is getting to the end, so it is important to arrange the rest and the rush hour properly. As we previously discovered in Part 5.1.3, the number of 2-point and 3-point shots are similar in the general league level. However, it is possible that it differs on individual player level. Therefore, let us take a look at the shooting behavior of LeBron James in different periods and hope to find some special patterns in it.
 
 ```{r}
 shot_data %>%
