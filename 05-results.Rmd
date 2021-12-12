@@ -170,7 +170,7 @@ plot_court(court_themes$light)
 
 ## League Shooting Pattern Analysis
 
-Firstly we will look at the distribution of shots made by the entire league.
+Firstly we will look at the distribution of distance of shots by the entire league.
 ```{r}
 density_graph <- shot_data %>%
   ggplot(aes(x = shot_distance)) + 
@@ -188,6 +188,8 @@ density_graph + density_ridges_zone + plot_layout(ncol=1)
 ```
 
 From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots.
+
+
 
 
 ## Team Shooting Pattern Analysis
