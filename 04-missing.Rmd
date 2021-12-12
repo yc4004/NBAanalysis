@@ -29,7 +29,8 @@ as_tibble(sum(is.na(shot_data))) %>% pander()
 ```
 
 To further confirm our hypothesis that our dataset contains no missing data, we then draw a missing value plot:
-```{r, fig.align = 'center', fig.height = 5, fig.width = 7}
+
+```{r regular_missing}
 # Input: df: dataframe to plot missing value; 
 #        percent: indicator whether to output percentage (FALSE: count, TRUE: percent)
 missing_plots <- function(df, percent = TRUE){
@@ -125,7 +126,7 @@ as_tibble(sum(is.na(shot_data_playoff))) %>% pander()
 ```
 
 Now we plot the missing value plot:
-```{r}
+```{r playoff_missing}
 missing_plots(shot_data_playoff, FALSE)
 ```
 
