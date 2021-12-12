@@ -23,6 +23,7 @@ library(scales)
 library(RCurl)
 library(jpeg)
 library(ggalluvial)
+
 ```
 
 ```{r}
@@ -33,6 +34,7 @@ shot_data_playoff = read_csv("shotchartdetail_playoffs.csv")
 
 In this chapter, we will our process to come up with the answers and our conclusions to each of the questions we proposed in the introduction section. Here are our questions proposed in the introduction chapter:
 
+<<<<<<< HEAD
 1. (On League Level)
 We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
 
@@ -40,6 +42,15 @@ We will give a overall glance at the dataset of last season to have a basic unde
 Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
 
 3. (On Player Level)
+=======
+1. On League Level
+We will give a overall glance at the dataset of last season to have a basic understanding on the shooting behaviors.
+
+2. On Team Level
+Basketball is a team-played game and each team has its own style and culture. From the perspective of team, we are going to look for some differences between shooting behaviors preferences and learn the relationship between the shooting patterns and period, field goal percentage, etc.
+
+3. On Player Level
+>>>>>>> d98a13c70680d94d272e320a09e395cf5a3689fe
 We choose three most popular players, Stephen Curry, Lebron James and Giannis Antetokounmpo to investigate their shooting choices and look at how other variables could influence their shooting decision such as in differnet periods of game.
 
 ## League Shooting Pattern Analysis
@@ -61,6 +72,7 @@ density_ridges_zone <- shot_data %>%
 density_graph + density_ridges_zone + plot_layout(ncol=1)
 ```
 
+<<<<<<< HEAD
 From the density histogram, we can see that the distribution of shot distance has two apparent peaks. Most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball.
 
 Then we can use boxplot to explore the distribution of shots made and missed on different zones based on minutes remaining in the period.
@@ -88,6 +100,17 @@ mosaic(event_type~shot_type + period, direction = c("v","v","h"), shot_mos,
        labeling = labeling_border(rot_labels = c(0,0,0)),
        main = "Mosaic Plot")
 ```
+=======
+From the density histogram, we can see that most shots are made around distance of 0 inch and 25 inches. According to the Ridgeline Plots, we can conclude that the shots made around 0 inch distance are in the restricted area, and the shots made around 25 inch distance are all kinds of 3-point shots. This graph shows that the modern basketball tends to shoot less mid-range and try to maximize points per play because the shooting percentage always gets higher when player approaches the basketball.
+
+
+```{r}
+boxplot(shot_distance~event_type,data=shot_data,horizontal=TRUE,main="Shot Distance for shots missed and made",col="lightblue",border="black",las=2,ylab='',cex.axis=0.5)
+```
+Then we take a look at the relationship between shot distance and it is obvious that missed shots have higher distance which makes sense to us because it is always harder to make a long-distanced shot than a short-distanced one.
+
+
+>>>>>>> d98a13c70680d94d272e320a09e395cf5a3689fe
 
 
 ## Team Shooting Pattern Analysis
@@ -233,6 +256,7 @@ curry_fg <- shot_steph %>%
   labs(title = "Stephen Curry FG% Compared to League Average")+
   theme_void()+
   theme(legend.position="bottom")
+
 curry_heat | curry_fg
 ```
 
@@ -246,7 +270,6 @@ On the other hand, we could still see that Stephen has his weakness, which is le
 ### Shooting pattern in playoffs of LeBron James
 
 We could always say that games of regular season do not really matter because being a championship depends on the performance in playoffs. So many top players choose to take as many rest as they can in regular season so that they could save more energy for the playoffs. Therefore, it would be great if we can find some differences of shooting behavior in regular season and playoffs. As a die-hard Lakers fan, I would choose to analyze LeBron James.
-
 
 ```{r}
 shot_lebron <-  shot_data %>%
@@ -333,10 +356,12 @@ Comparing the performance in regular season and playoffs, we could see that alth
 Every basketball game has four periods and athletes would get exhausted when game is getting to the end, so it is important to arrange the rest and the rush hour properly. Therefore, let us take a look at the shooting behavior of LeBron James in different periods and hope to find some special patterns in it.
 
 ```{r}
-shot_lebron %>%
+shot_data %>%
+  filter(player_name == "LeBron James") %>%
   filter(period!="5" & period!="6") %>%
-  ggplot(aes(x = as.numeric(as.character(shot_distance)), group = period, fill = factor(period)) )+
-  geom_density(alpha = 0.5) +
+  mutate(period = factor(period, levels = c("1", "2", "3", "4","Right Side(R)"))) %>%
+  ggplot(aes(x = as.numeric(as.character(shot_distance)), group = period, fill = period)) +
+  geom_density(alpha = 0.6) +
   theme(legend.position = c(0.9, 0.8)) +
   xlab("Shooting Distance")
 ```
