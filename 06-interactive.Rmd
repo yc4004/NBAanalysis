@@ -1,6 +1,6 @@
 # Interactive component
 
-<iframe src="docs/docs/index.html" width="800" height="600"></iframe>
+<iframe src="shotsd3.html" width="800" height="600"></iframe>
 
 
 For the interactive component, we examine how shooting patterns vary with shooting distance among all players and compare the shooting patterns in different periods.
