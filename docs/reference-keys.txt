@@ -18,6 +18,3 @@ analysis-on-shooting-behavior-in-different-periods-of-lebron-james
 shooting-behavior-of-giannis-antetokounmpo
 interactive-component
 conclusion
-concluding-the-findings
-discussing-limitations
-looking-into-the-future
