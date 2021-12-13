@@ -2,7 +2,7 @@
 
 Note that there is no downloading option for the data on NBA official website, so we need to scrape the data from the official website https://www.nba.com/stats/ using `GET()` from `httr` library.
 
-Since the data source is the NBA official website, and we scraped the data directly from it, it is considered reliable. 
+Since the data source is the NBA's official website, and we scraped the data directly from it, it is considered reliable. 
 
 In this project we want to focus on the data for the last regular season and playoffs, meaning the 2020-21 Regular Season and Playoffs. 
 
@@ -10,11 +10,11 @@ In this project we want to focus on the data for the last regular season and pla
 
 The scraping procedure for detailed shots data for 2020-21 Regular Season is as follows:
 
-* For the detailed shooting data, we firstly land in the https://www.nba.com/stats/ webpage. Scrolling down, we can see a "Shotchart Search" section. Inputting one player's name, taking Stephen Curry during 2021-22 season as example, we can land in the page https://www.nba.com/stats/events/?flag=3&CFID=33&CFPARAMS=2021-22&PlayerID=201939&ContextMeasure=FGA&Season=2021-22&section=player&sct=hex. 
+* For the detailed shooting data, we firstly land in the https://www.nba.com/stats/ webpage. Scrolling down, we can see a "Shotchart Search" section. Inputting one player's name, taking Stephen Curry during the 2021-22 season as an example, we can land on the page https://www.nba.com/stats/events/?flag=3&CFID=33&CFPARAMS=2021-22&PlayerID=201939&ContextMeasure=FGA&Season=2021-22&section=player&sct=hex. 
 
 * In this page, we can see data with each row being a field goal that gives us information like the type of shot, whether it was successful, shot distance, etc. However, the exact location of the shot doesn't appear. 
 
-* To access the detailed shots location data, we can right click on the webpage and select "Inspect" and navigate to the "Network" tab. Then we can find the `shotchartdetail` data (if not appear, refresh page). Once find it, right clicking it and open it in a new tab, so we can get the URL.
+* To access the detailed shots location data, we can right-click on the webpage and select "Inspect" and navigate to the "Network" tab. Then we can find the `shotchartdetail` data (if not appear, refresh page). Once find it, right-click it and open it in a new tab, so we can get the URL.
 
 * After getting the URL, we can use the url to import the data on the webpage into our R studio using `GET()` function.
 
@@ -111,7 +111,7 @@ write.csv(shotchartdetail_regular, "shotchartdetail_regular.csv",row.names = FAL
 
 After building the function to grab shots data using `GET()` and doing simple data preprocessing, our final 2020-21 Regular Season Shots Data contains in total 24 columns and around 200,000 observations. 
 
-The variables include player information (ID, name), team information (ID, name), game information (ID, date), and shot information (period, minutes and seconds remaining, whether shot successful, XY location, shot zone, shot area, etc.). All variables are in either string or integer format except date.
+The variables include player information (`playerID`, `player_name`), team information (`tean_ID`, `team_name`), game information (`game_ID`, `game_date`), and shot information (`period`, `minutes remaining` and `seconds remaining`, whether shot successful - `event_type`, shot XY location, `shot_distance`, `shot_zone`, `shot_area`, etc.). All variables are in either string or integer format.
 
 **2020-21 Playoffs Shots Data**
 
