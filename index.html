@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shot Distance Bar Plot</title>
+    <style>
+      body {
+        text-align: center;
+        font-size: 13em;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v7.js"></script>
+  </head>
+  <button onclick="update(allData)">All Data</button>
+  <button onclick="update(data1)">First Quarter</button>
+  <button onclick="update(data2)">Second Quarter</button>
+  <button onclick="update(data3)">Third Quarter</button>
+  <button onclick="update(data4)">Forth Quarter</button>
+	<div id="BarPlot"></div>
+  <script>
+  const margin = {top: 30, right: 30, bottom: 70, left: 60},
+    width = 800 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+    
+  const xAxisLabel = 'Shooting Distance';
+  const yAxisLable = 'Number of Goals Made';
+
+  const bars = d3.select("#BarPlot")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  bars.append("text")
+      .attr("class", "x label")
+      .attr("text-anchor", "end")
+      .attr("x", width + 30)
+      .attr("y", height + 30)
+      .style("font-size", "20px")
+      .text(xAxisLabel);
+
+  bars.append("text")
+      .attr("class", "y label")
+      .attr("text-anchor", "end")
+      .attr("y", 6)
+      .attr("dy", "-0.8em")
+      .attr("transform", "rotate(-90)")
+      .style("font-size", "20px")
+      .text(yAxisLable);
+
+  const x = d3.scaleBand()
+    .range([ 50, width-50 ])
+    .padding(0.1);
+  const xAxis = bars.append("g")
+    .attr("transform", `translate(0,${height})`)
+
+  const y = d3.scaleLinear()
+    .range([ height, 0]);
+  const yAxis = bars.append("g")
+    .attr("transform", "translate(50,0)")
+
+  const csvUrl = "https://raw.githubusercontent.com/yc4004/NBAanalysis/main/shotchartdetail_regular_updated.csv";
+  const allData = d3.csv(csvUrl);
+  const data1 = d3.csv(csvUrl)
+  .then((data) => d3.filter(data, d => d.period == '1'));
+  const data2 = d3.csv(csvUrl)
+  .then((data) => d3.filter(data, d => d.period == '2'));
+  const data3 = d3.csv(csvUrl)
+  .then((data) => d3.filter(data, d => d.period == '3'));
+  const data4 = d3.csv(csvUrl)
+  .then((data) => d3.filter(data, d => d.period == '4'));
+
+  function update(data) {
+    	data.then(function (data) {
+        const nest = [];
+        const keys = ["1","2","3","4","5","6","7","8","9", "10", "11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29"];
+        keys.forEach((d) => {
+          const s = d3.sum (data.filter(data => data.shot_distance === d), (e) => e.shot_made_flag); 
+
+          const obj = {
+            distance: d, //shotting distance
+            TotalGoals: s //sum for goals made
+          }       
+          nest.push(obj);
+        })  
+    
+        x.domain(nest.map(d => d.distance))
+        xAxis.call(d3.axisBottom(x))
+        .selectAll("text")      
+
+        y.domain([0, d3.max(nest, d => d.TotalGoals) * 1.1]);
+        yAxis.transition().duration(1000).call(d3.axisLeft(y));
+
+        const u = bars.selectAll("rect")
+          .data(nest)
+
+        u.join("rect") 
+          .transition() 
+          .duration(1000)
+            .attr("x", d => x(d.distance))
+            .attr("y", d => y(d.TotalGoals))
+            .attr("width", x.bandwidth())
+            .attr("height", d => height - y(d.TotalGoals))
+            .attr("fill", "steelblue")
+            .attr("opacity", 0.8)
+    	})  	
+	}
+
+update(allData);
+  </script>
+</html>
