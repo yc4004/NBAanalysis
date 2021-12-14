@@ -10,6 +10,7 @@
 	<body>
 	  <h2 style="font-family: Verdana"> FG% and Shot Count in Different Zone on Different Quarters</h2>
 	  
+	  <button type="button" onclick = "ini()">Entire Game</button>
 	  <button type="button" onclick = "quarter(1)">1st Quarter</button>
     <button type="button" onclick = "quarter(2)">2nd Quarter</button>
     <button type="button" onclick = "quarter(3)">3rd Quarter</button>
@@ -65,7 +66,7 @@
     numtext.enter()
     .append("text")
     .attr("x", (d, i) => i*100 + 40)
-    .attr("y",  d=> 490-d/200)
+    .attr("y",  d=> 490-d/250)
     .attr("font-family","Monaco")
     .attr("font-size","13px")
     .text(d => d);
@@ -83,17 +84,17 @@
 		bars_2pt.enter()
 		.append("rect")
 		.attr("x", (d, i) => i*100 + 25)
-		.attr("y",  d=> 500-d/200)
+		.attr("y",  d=> 500-d/250)
 		.attr("width", "70")
-		.attr("height", d => d/200)
+		.attr("height", d => d/250)
 		.attr("fill", "#F9E79F");
 		
 		bars_3pt.enter()
 		.append("rect")
 		.attr("x", (d, i) => (i+3)*100 + 25)
-		.attr("y",  d=> 500-d/200)
+		.attr("y",  d=> 500-d/250)
 		.attr("width", "70")
-		.attr("height", d => d/200)
+		.attr("height", d => d/250)
 		.attr("fill", "#A2D9CE");
 		
 		bars_fg_2pt.enter()
@@ -245,6 +246,117 @@
 		
 		function quarter(num) {
       update(period[num-1],period_fg[num-1]);
+    }
+    
+    function ini(){
+		    
+		var bars_2pt = d3.select("g#bar_2")
+		.selectAll("rect")
+		.data(total.slice(0,3));
+		
+		var bars_3pt = d3.select("g#bar_3")
+		.selectAll("rect")
+		.data(total.slice(3,7));
+		
+		var bars_fg_2pt = d3.select("g#fg2")
+		.selectAll("rect")
+		.data(fg_total.slice(0,3));
+		
+		var bars_fg_3pt = d3.select("g#fg3")
+		.selectAll("rect")
+		.data(fg_total.slice(3,7));
+		    
+		var numtext = d3.select("g#labels")
+		.selectAll("text")
+    .data(total)
+    
+    var numtext_fg = d3.select("g#labelsfg")
+		.selectAll("text")
+    .data(fg_total)
+
+    
+    numtext.enter()
+    .append("text")
+    .attr("x", (d, i) => i*100 + 40)
+    .attr("y",  d=> 490-d/200)
+    .attr("font-family","Monaco")
+    .attr("font-size","13px")
+    .text(d => d)
+    .merge(numtext)
+      .transition()
+      .duration(2000)
+      .attr("y",  d=> 490-d/250)
+      .duration(2000)
+      .text(d => d);
+   
+		    
+		bars_2pt.enter()
+		.append("rect")
+		.attr("x", (d, i) => i*100 + 25)
+		.attr("y",  d=> 500-d/250)
+		.attr("width", "70")
+		.attr("height", d => d/250)
+		.attr("fill", "#F9E79F")
+		.merge(bars_2pt)
+      .transition()
+      .duration(2000)
+      .attr("height", d => d/250)
+      .attr("y", d=> 500-d/250);
+		
+		bars_3pt.enter()
+		.append("rect")
+		.attr("x", (d, i) => (i+3)*100 + 25)
+		.attr("y",  d=> 500-d/250)
+		.attr("width", "70")
+		.attr("height", d => d/250)
+		.attr("fill", "#A2D9CE")
+		.merge(bars_3pt)
+      .transition()
+      .duration(2000)
+      .attr("height", d => d/250)
+      .attr("y", d=> 500-d/250);
+		
+		bars_fg_2pt.enter()
+		.append("rect")
+		.attr("x", (d, i) => i*100 + 25)
+		.attr("y",  d=> 200-d*100)
+		.attr("width", "70")
+		.attr("height", d => d*100)
+		.attr("fill", "#F9E79F")
+		.merge(bars_fg_2pt)
+      .transition()
+      .duration(2000)
+      .attr("height", d => d*100)
+      .attr("y", d=> 200-d*100);
+		
+		bars_fg_3pt.enter()
+		.append("rect")
+		.attr("x", (d, i) => (i+3)*100 + 25)
+		.attr("y",  d=> 200-d*100)
+		.attr("width", "70")
+		.attr("height", d => d*100)
+		.attr("fill", "#A2D9CE")
+		.merge(bars_fg_3pt)
+      .transition()
+      .duration(2000)
+      .attr("height", d => d*100)
+      .attr("y", d=> 200-d*100);
+		
+		numtext_fg.enter()
+    .append("text")
+    .attr("x", (d, i) => i*100 + 45)
+    .attr("y",  d=> 190-d*100)
+    .attr("font-family","Monaco")
+    .attr("font-size","13px")
+    .text(d => d*100+"%")
+    .merge(numtext_fg)
+      .transition()
+      .attr("y",  d=> 190-d*100)
+      .duration(2000)
+      .text(d => d*100+"%");
+      
+    
+		  // generate update pattern 
     }
 		</script>
 	</body>
