@@ -2,7 +2,7 @@
 
 For the interactive component, we examine how shooting patterns (both field goal percentage and shot counts) vary with shooting zones among all players and compare the shooting patterns in different quarters of the game.
 
-By looking at all data, we obtain the same conclusion as before, which is that players shoot less mid-range than 3-points and layups.
+By looking at all data, we obtain the same conclusion as before, which is that players shoot less mid-range than 3-points and layups. Another interesting observation is that, not many 3-point shots are made at left and right corners, but the field goal percentage is similar within different 3-point zones.
 
 After exploring the patterns with different periods, we find that, firstly, the field goal percentage (FG%) doesn't vary a lot between periods, with the FG% highest in restricted zones. Since the restricted zones are almost under the hoop, this corresponds to our conclusion that the shhoting distance affect the shooting probability. One significant difference we should noticed is that, the 4th quarter will comparatively have more 3-point shots. The total number of 3-point shots doesn't change much when comparing with the 1st quarter and the 4th quarter, but the 2-point shots apparently decreased. 
 
