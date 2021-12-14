@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+		<meta charset="utf-8">
+		<title>Final Project Interactive</title>
+		<script src="https://d3js.org/d3.v7.js"></script>
+	</head>
+
+	<body>
+	  <h2 style="font-family: Verdana"> FG% and Shot Count in Different Zone on Different Quarters</h2>
+	  
+	  <button type="button" onclick = "quarter(1)">1st Quarter</button>
+    <button type="button" onclick = "quarter(2)">2nd Quarter</button>
+    <button type="button" onclick = "quarter(3)">3rd Quarter</button>
+    <button type="button" onclick = "quarter(4)">4th Quarter</button>
+	  
+    
+   
+    
+		<script>
+		var zonename = ["Restricted Area","In The Paint","Mid-Range","Left Corner 3" , "Right Corner 3","Above Break 3", "Backcourt"]
+		var total = [56496,307,34057,9133,24397,57104,8419]
+		var period = [[14663, 9035, 6859, 2259, 2177, 14466, 085],[14660, 8960, 5975, 2353, 2089, 13762, 111], [14237, 8372, 6010, 2262, 2124, 14131, 95],[13544,7690,5553	,2259	,2029	,14137,16	]]
+		var period_fg = [[0.64,0.43,0.43,0.41,0.41,0.38,0.02],[0.64,0.42,0.42,0.40,0.38,0.35,0.02],[0.64,0.44,0.41,0.39,0.40,0.36,0.04],[0.64,0.41,0.41,0.38,0.37,0.35,0]]
+		
+		var fg_total = [0.64,0.43,0.42,0.40,0.36,0.03]
+		    
+		var svg = d3.select("body").append("svg")
+		.attr("width", "800")
+		.attr("height","650");
+		    
+		var bars_2pt = svg.append("g")
+		.attr("id", "bar_2")
+		.selectAll("rect")
+		.data(total.slice(0,3));
+		
+		var bars_3pt = svg.append("g")
+		.attr("id", "bar_3")
+		.selectAll("rect")
+		.data(total.slice(3,7));
+		
+		var bars_fg_2pt = svg.append("g")
+		.attr("id", "fg2")
+		.selectAll("rect")
+		.data(fg_total.slice(0,3));
+		
+		var bars_fg_3pt = svg.append("g")
+		.attr("id", "fg3")
+		.selectAll("rect")
+		.data(fg_total.slice(3,7));
+		    
+		var numtext = svg.append("g")
+		.attr("id", "labels")
+		.selectAll("text")
+    .data(total)
+    
+    var numtext_fg = svg.append("g")
+		.attr("id", "labelsfg")
+		.selectAll("text")
+    .data(fg_total)
+        
+    var axistext = svg.selectAll("text")
+    .data(zonename)
+
+    
+    numtext.enter()
+    .append("text")
+    .attr("x", (d, i) => i*100 + 40)
+    .attr("y",  d=> 540-d/200)
+    .attr("font-family","Monaco")
+    .attr("font-size","13px")
+    .text(d => d);
+        
+    axistext.enter()
+    .append("text")
+    .attr("x", (d, i) => i*100+26)
+    .attr("y",  "620")
+    .attr("font-family","Arial")
+    .attr("font-size","12px")
+    .attr("font-weight", "bold")
+    .attr("color","#B2BABB")
+    .text(d => d);
+		    
+		bars_2pt.enter()
+		.append("rect")
+		.attr("x", (d, i) => i*100 + 25)
+		.attr("y",  d=> 550-d/200)
+		.attr("width", "70")
+		.attr("height", d => d/200)
+		.attr("fill", "#F9E79F");
+		
+		bars_3pt.enter()
+		.append("rect")
+		.attr("x", (d, i) => (i+3)*100 + 25)
+		.attr("y",  d=> 550-d/200)
+		.attr("width", "70")
+		.attr("height", d => d/200)
+		.attr("fill", "#A2D9CE");
+		
+		bars_fg_2pt.enter()
+		.append("rect")
+		.attr("x", (d, i) => i*100 + 25)
+		.attr("y",  d=> 250-d*100)
+		.attr("width", "70")
+		.attr("height", d => d*100)
+		.attr("fill", "#F9E79F");
+		
+		bars_fg_3pt.enter()
+		.append("rect")
+		.attr("x", (d, i) => (i+3)*100 + 25)
+		.attr("y",  d=> 250-d*100)
+		.attr("width", "70")
+		.attr("height", d => d*100)
+		.attr("fill", "#A2D9CE");
+		
+		numtext_fg.enter()
+    .append("text")
+    .attr("x", (d, i) => i*100 + 45)
+    .attr("y",  d=> 240-d*100)
+    .attr("font-family","Monaco")
+    .attr("font-size","13px")
+    .text(d => d*100+"%");
+    
+    svg.append("text")
+    .attr("x",0)
+    .attr("y",50)
+    .attr("font-family","Arial")
+    .attr("font-size","20px")
+    .attr("font-weight", "bold")
+    .text("FG% in Different Zones")
+    
+    svg.append("text")
+    .attr("x", 0)
+    .attr("y",280)
+    .attr("font-family","Arial")
+    .attr("font-size","20px")
+    .attr("font-weight", "bold")
+    .text("Total Shots in Different Zones")
+
+		  // generate update pattern 
+		    
+		function update(newdata,newdata_fg) {
+		  
+		  var newbars_2pt = d3.select("g#bar_2")
+		  .selectAll("rect")  
+	    .data(newdata.slice(0,3));
+	    
+	    var newbars_3pt = d3.select("g#bar_3")
+		  .selectAll("rect")  
+	    .data(newdata.slice(3,7));
+	    
+	    var newbars_2pt_fg = d3.select("g#fg2")
+		  .selectAll("rect")  
+	    .data(newdata_fg.slice(0,3));
+	    
+	    var newbars_3pt_fg = d3.select("g#fg3")
+		  .selectAll("rect")  
+	    .data(newdata_fg.slice(3,7));
+	    
+	    
+	    var newnumtext = d3.select("g#labels")
+	    .selectAll("text")    // data join
+	    .data(newdata);
+	    
+	    var newnumtext_fg = d3.select("g#labelsfg")
+	    .selectAll("text")    // data join
+	    .data(newdata_fg);
+		  
+		  newbars_2pt.enter()
+		  .append("rect")    // add new elements
+      .attr("x", (d, i) => i*100 + 25)
+      .attr("y", d=> 550-d/100)
+      .attr("width","70")
+      .attr("height", 0)
+      .attr("fill", "#F9E79F")
+      .merge(newbars_2pt)
+      .transition()
+      .duration(2000)
+      .attr("height", d => d/100)
+      .attr("y", d=> 550-d/100);
+      
+      newbars_3pt.enter()
+		  .append("rect")    // add new elements
+      .attr("x", (d, i) => (i+3)*100 + 25)
+      .attr("y", d=> 550-d/100)
+      .attr("width","70")
+      .attr("height", 0)
+      .attr("fill", "#AED6F1")
+      .merge(newbars_3pt)
+      .transition()
+      .duration(2000)
+      .attr("height", d => d/100)
+      .attr("y", d=> 550-d/100);
+      
+      newbars_2pt_fg.enter()
+		  .append("rect")    // add new elements
+      .attr("x", (d, i) => i*100 + 25)
+      .attr("y", d=> 250-d*100)
+      .attr("width","70")
+      .attr("height", 0)
+      .attr("fill", "#F9E79F")
+      .merge(newbars_2pt_fg)
+      .transition()
+      .duration(2000)
+      .attr("height", d => d*100)
+      .attr("y", d=> 250-d*100);
+      
+      newbars_3pt_fg.enter()
+		  .append("rect")    // add new elements
+      .attr("x", (d, i) => (i+3)*100 + 25)
+      .attr("y", d=> 250-d*100)
+      .attr("width","70")
+      .attr("height", 0)
+      .attr("fill", "#AED6F1")
+      .merge(newbars_3pt_fg)
+      .transition()
+      .duration(2000)
+      .attr("height", d => d*100)
+      .attr("y", d=> 250-d*100);
+      
+      newnumtext.enter()
+      .append("text")
+      .attr("x", (d, i) => i*100 + 40)
+      .attr("y",  d => 540-d/100)
+      .attr("font-family","Monaco")
+      .attr("font-size","13px")
+      .merge(newnumtext)
+      .transition()
+      .attr("y",  d=> 540-d/100)
+      .duration(2000)
+      .text(d => d);
+      
+      newnumtext_fg.enter()
+      .append("text")
+      .attr("x", (d, i) => i*100 + 40)
+      .attr("y",  d => 240-d*100)
+      .attr("font-family","Monaco")
+      .attr("font-size","13px")
+      .merge(newnumtext_fg)
+      .transition()
+      .attr("y",  d=> 240-d*100)
+      .duration(2000)
+      .text(d => d*100+"%");
+
+		}
+		
+		function quarter(num) {
+      update(period[num-1],period_fg[num-1]);
+    }
+		</script>
+	</body>
+
