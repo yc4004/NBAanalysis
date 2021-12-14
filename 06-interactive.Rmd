@@ -10,5 +10,3 @@ After exploring the patterns with different periods, we find that, firstly, the 
 *(Note that the yellow color in interactive plot means 2-point shots and green color in interactive plot means 3-point shots).*
 <iframe src="06-interactive.html" width="800" height="650"></iframe>
 
-
-
