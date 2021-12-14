@@ -14,8 +14,6 @@
     <button type="button" onclick = "quarter(2)">2nd Quarter</button>
     <button type="button" onclick = "quarter(3)">3rd Quarter</button>
     <button type="button" onclick = "quarter(4)">4th Quarter</button>
-	  
-    
    
     
 		<script>
@@ -28,7 +26,7 @@
 		    
 		var svg = d3.select("body").append("svg")
 		.attr("width", "800")
-		.attr("height","650");
+		.attr("height","550");
 		    
 		var bars_2pt = svg.append("g")
 		.attr("id", "bar_2")
@@ -67,7 +65,7 @@
     numtext.enter()
     .append("text")
     .attr("x", (d, i) => i*100 + 40)
-    .attr("y",  d=> 540-d/200)
+    .attr("y",  d=> 490-d/200)
     .attr("font-family","Monaco")
     .attr("font-size","13px")
     .text(d => d);
@@ -75,7 +73,7 @@
     axistext.enter()
     .append("text")
     .attr("x", (d, i) => i*100+26)
-    .attr("y",  "620")
+    .attr("y",  "520")
     .attr("font-family","Arial")
     .attr("font-size","12px")
     .attr("font-weight", "bold")
@@ -85,7 +83,7 @@
 		bars_2pt.enter()
 		.append("rect")
 		.attr("x", (d, i) => i*100 + 25)
-		.attr("y",  d=> 550-d/200)
+		.attr("y",  d=> 500-d/200)
 		.attr("width", "70")
 		.attr("height", d => d/200)
 		.attr("fill", "#F9E79F");
@@ -93,7 +91,7 @@
 		bars_3pt.enter()
 		.append("rect")
 		.attr("x", (d, i) => (i+3)*100 + 25)
-		.attr("y",  d=> 550-d/200)
+		.attr("y",  d=> 500-d/200)
 		.attr("width", "70")
 		.attr("height", d => d/200)
 		.attr("fill", "#A2D9CE");
@@ -101,7 +99,7 @@
 		bars_fg_2pt.enter()
 		.append("rect")
 		.attr("x", (d, i) => i*100 + 25)
-		.attr("y",  d=> 250-d*100)
+		.attr("y",  d=> 200-d*100)
 		.attr("width", "70")
 		.attr("height", d => d*100)
 		.attr("fill", "#F9E79F");
@@ -109,7 +107,7 @@
 		bars_fg_3pt.enter()
 		.append("rect")
 		.attr("x", (d, i) => (i+3)*100 + 25)
-		.attr("y",  d=> 250-d*100)
+		.attr("y",  d=> 200-d*100)
 		.attr("width", "70")
 		.attr("height", d => d*100)
 		.attr("fill", "#A2D9CE");
@@ -117,7 +115,7 @@
 		numtext_fg.enter()
     .append("text")
     .attr("x", (d, i) => i*100 + 45)
-    .attr("y",  d=> 240-d*100)
+    .attr("y",  d=> 190-d*100)
     .attr("font-family","Monaco")
     .attr("font-size","13px")
     .text(d => d*100+"%");
@@ -132,7 +130,7 @@
     
     svg.append("text")
     .attr("x", 0)
-    .attr("y",280)
+    .attr("y",240)
     .attr("font-family","Arial")
     .attr("font-size","20px")
     .attr("font-weight", "bold")
@@ -170,7 +168,7 @@
 		  newbars_2pt.enter()
 		  .append("rect")    // add new elements
       .attr("x", (d, i) => i*100 + 25)
-      .attr("y", d=> 550-d/100)
+      .attr("y", d=> 500-d/100)
       .attr("width","70")
       .attr("height", 0)
       .attr("fill", "#F9E79F")
@@ -178,12 +176,12 @@
       .transition()
       .duration(2000)
       .attr("height", d => d/100)
-      .attr("y", d=> 550-d/100);
+      .attr("y", d=> 500-d/100);
       
       newbars_3pt.enter()
 		  .append("rect")    // add new elements
       .attr("x", (d, i) => (i+3)*100 + 25)
-      .attr("y", d=> 550-d/100)
+      .attr("y", d=> 500-d/100)
       .attr("width","70")
       .attr("height", 0)
       .attr("fill", "#AED6F1")
@@ -191,12 +189,12 @@
       .transition()
       .duration(2000)
       .attr("height", d => d/100)
-      .attr("y", d=> 550-d/100);
+      .attr("y", d=> 500-d/100);
       
       newbars_2pt_fg.enter()
 		  .append("rect")    // add new elements
       .attr("x", (d, i) => i*100 + 25)
-      .attr("y", d=> 250-d*100)
+      .attr("y", d=> 200-d*100)
       .attr("width","70")
       .attr("height", 0)
       .attr("fill", "#F9E79F")
@@ -204,12 +202,12 @@
       .transition()
       .duration(2000)
       .attr("height", d => d*100)
-      .attr("y", d=> 250-d*100);
+      .attr("y", d=> 200-d*100);
       
       newbars_3pt_fg.enter()
 		  .append("rect")    // add new elements
       .attr("x", (d, i) => (i+3)*100 + 25)
-      .attr("y", d=> 250-d*100)
+      .attr("y", d=> 200-d*100)
       .attr("width","70")
       .attr("height", 0)
       .attr("fill", "#AED6F1")
@@ -217,29 +215,29 @@
       .transition()
       .duration(2000)
       .attr("height", d => d*100)
-      .attr("y", d=> 250-d*100);
+      .attr("y", d=> 200-d*100);
       
       newnumtext.enter()
       .append("text")
       .attr("x", (d, i) => i*100 + 40)
-      .attr("y",  d => 540-d/100)
+      .attr("y",  d => 490-d/100)
       .attr("font-family","Monaco")
       .attr("font-size","13px")
       .merge(newnumtext)
       .transition()
-      .attr("y",  d=> 540-d/100)
+      .attr("y",  d=> 490-d/100)
       .duration(2000)
       .text(d => d);
       
       newnumtext_fg.enter()
       .append("text")
       .attr("x", (d, i) => i*100 + 40)
-      .attr("y",  d => 240-d*100)
+      .attr("y",  d => 190-d*100)
       .attr("font-family","Monaco")
       .attr("font-size","13px")
       .merge(newnumtext_fg)
       .transition()
-      .attr("y",  d=> 240-d*100)
+      .attr("y",  d=> 190-d*100)
       .duration(2000)
       .text(d => d*100+"%");
 
